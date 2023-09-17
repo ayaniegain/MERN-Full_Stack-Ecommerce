@@ -1,18 +1,12 @@
 import React from 'react'
-import { useParams,Outlet,Link } from 'react-router-dom'
+import Layout from '../layout/Layout'
 
 
 function Contact() {
-    let {id}=useParams()
-    console.log(id)
   return (
-    <div>
-    <nav>
-     <Link to="/contact/4200">contact Users</Link>
-     <Link to="/contact/index">contact index</Link>
-    <Outlet/>
-    </nav>
-  </div>
+    <Layout title={"contact"}>
+   <h2>Contact</h2>
+  </Layout>
 
   )
 }

@@ -1,8 +1,9 @@
 import React from 'react'
+import Layout from '../layout/Layout'
 
 function Home() {
   return (
-    <div>Home</div>
+    <Layout title={"Home"}><h2>Home</h2></Layout>
   )
 }
 

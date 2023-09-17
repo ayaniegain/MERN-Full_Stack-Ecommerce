@@ -1,15 +1,16 @@
 const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv");
-const connect = require("./config/db");
+const connectDB = require("./config/db");
 const morgan = require("morgan");
-const router = require("./routes/authRoute");
+const cors =require("cors")
+const authRoutes  = require("./routes/authRoute");
 
 //config env
 dotenv.config();
 
 // database config
-connect();
+connectDB();
 
 //rest object
 const app = express();
@@ -17,10 +18,10 @@ const app = express();
 //middleware
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors())
 
-//router
-app.use(router);
-
+//Routes 
+app.use("/api/v1/auth",authRoutes );
 //port
 const PORT = process.env.PORT || 8080;
 
