@@ -2,7 +2,7 @@ import React from 'react'
 import Footer from './Footer'
 import Header from './Header'
 import Helmet from "react-helmet"
-import toast, { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 
 
 

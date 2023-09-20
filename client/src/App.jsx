@@ -7,22 +7,25 @@ import PageNotFound from "./component/pages/PageNotFound";
 import Policy from "./component/pages/Policy";
 import Register from "./component/pages/Auth/Register";
 import Login from "./component/pages/Auth/Login";
+import Dashboard from "./component/pages/user/Dashboard";
+import Private from "./component/Routes/Private";
 
 function App() {
-  
   return (
-    <>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/policy" element={<Policy />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<PageNotFound />} />
-        </Routes>
-        ;
-    </>
+
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<Private />}>
+
+      <Route path="" element={<Dashboard />} />
+      </Route>
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/policy" element={<Policy />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/*" element={<PageNotFound />} />
+    </Routes>
   );
 }
 

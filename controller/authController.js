@@ -40,7 +40,7 @@ const registerController = async (req, res) => {
       address,
     }).save();
 
-    console.log("user",user)
+    // console.log("user",user)
 
     res.status(201).send({
       success: true,
@@ -74,7 +74,7 @@ const LoginController = async (req, res) => {
         message: "Email is not registerd",
       });
     }
-    // register user
+    // Invalid password
     const match = await comparePassword(password, user.password);
     if (!match) {
       return res.status(200).send({
@@ -89,6 +89,8 @@ const LoginController = async (req, res) => {
       process.env.JWT_SECRECT_KEY,
       { expiresIn: "7d" }
     );
+    let loginStatus=true
+    
     res.status(200).send({
       success: true,
       message: "User Login Successfully",
@@ -99,6 +101,7 @@ const LoginController = async (req, res) => {
         address: user.name,
       },
       token,
+      loginStatus
     });
   } catch (error) {
     console.log(error);
@@ -112,7 +115,9 @@ const LoginController = async (req, res) => {
 // test get request 
 const testController = async (req, res) => {
   try {
+    const user = await userModel.find()
     res.send("Protected route");
+    console.log("usercheck",user)
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -122,5 +127,17 @@ const testController = async (req, res) => {
     });
   }
 };
+const proterConroller = async (req, res) => {
+  try {
+    res.status(200).send({"ok":true})
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Protected route ",
+      error,
+    });
+  }
+};
 
-module.exports = { registerController, LoginController, testController };
+module.exports = { registerController, LoginController, testController,proterConroller };

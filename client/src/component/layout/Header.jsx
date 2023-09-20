@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link,NavLink } from "react-router-dom";
+import  {useContextData}  from "../context/useAuth";
+import toast from 'react-hot-toast';
+
+
 
 function Header() {
+  let [auth,setAuth] =useContextData()
+  let loginStatus=auth.loginStatus
+  // console.log(auth)
+
+  const handleClick=()=>setAuth({
+    ...auth,
+    user:null,
+    token:"",
+    loginStatus: false
+    }, localStorage.removeItem('auth'),
+    setTimeout(()=>{
+
+      toast.success("user Logout successfully")
+      
+    },1000)
+    ) 
+
   return (
     <>
       <nav className="bg-white  dark:bg-gray-900 shadow">
@@ -29,14 +50,17 @@ function Header() {
                   About
                 </li>
               </NavLink >
-              <NavLink  to={"/register"}>
+              {!loginStatus &&
+
+                <NavLink  to={"/register"}>
                 <li className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                   Register
                 </li>
               </NavLink >
+               } 
               <NavLink  to={"/login"}>
                 <li className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                  Login
+                {!loginStatus ?  "Login" : <button onClick={handleClick}><span className="text-pink-600">logout</span></button>}
                 </li>
               </NavLink >
               <NavLink  to={"/contact"}>

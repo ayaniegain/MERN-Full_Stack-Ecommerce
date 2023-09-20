@@ -1,8 +1,8 @@
 const express = require("express");
-const colors = require("colors");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
 const morgan = require("morgan");
+const colors = require("colors");
+const connectDB = require("./config/db");
 const cors =require("cors")
 const authRoutes  = require("./routes/authRoute");
 

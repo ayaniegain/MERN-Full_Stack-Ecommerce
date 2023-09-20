@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import Layout from '../../layout/Layout'
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink,useNavigate,useLocation} from "react-router-dom";
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import  {useContextData}  from "../../context/useAuth";
+
 
 function Login() {
+  let [auth,setAuth] =useContextData()
+  let location =useLocation()
+
+ 
+
   const navigate = useNavigate();
   const[data,setData]=useState({
     email:"",
@@ -13,17 +20,29 @@ function Login() {
   let handleSubmit=async(e)=>{
     e.preventDefault();
 
-    console.log(data)
     try {
       let res=await  axios.post(`${import.meta.env.VITE_REACT_APP_API}/api/v1/auth/login`,{
         email:data.email,
         password:data.password
       })
-      if (res.data.success) {
+      if (res.data.success  ) {
+        // console.log("user",res.data.user)
+        // console.log("token",res.data.token)
+        setAuth({
+          ...auth,
+          user:res.data.user,
+          token:res.data.token,
+          loginStatus: res.data.loginStatus
+        })
+
+        // useEffect(() => {
+          localStorage.setItem("auth",JSON.stringify(res.data))
+        // }, [auth]);
+
         setTimeout(() => {
           toast.success(res.data.message);
         }, 1000);
-        navigate("/");
+        navigate( location.state ||"/");
       } else {
         toast.error(res.data.message);
       }
