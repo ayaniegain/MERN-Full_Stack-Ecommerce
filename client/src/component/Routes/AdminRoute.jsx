@@ -4,14 +4,14 @@ import { useContextData } from "../context/useAuth";
 import { Outlet } from "react-router-dom";
 import Spinner from "../../assets/Spinner";
 
-export const Private = () => {
+export const AdminRoute = () => {
   const [ok, setOk] = useState(false);
   let [auth, setAuth] = useContextData();
 
   useEffect(() => {
     let authCheck = async () => {
       let res = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/auth/user-auth`
+        `${import.meta.env.VITE_REACT_APP_API}/api/v1/auth/admin-auth`
       );
       // console.log(res)
       if (res.data.ok) {
@@ -24,7 +24,7 @@ export const Private = () => {
     if (auth?.token) authCheck();
   }, [auth?.token]);
 
-  return ok ? <Outlet /> : <Spinner />;
+  return ok ? <Outlet /> : <Spinner path="" />;
 };
 
-// export default Private;
+// export default AdminRoute;

@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../layout/Layout'
-import  {useContextData}  from "../context/useAuth";
+import { Link, NavLink } from 'react-router-dom'
 
 function Home() {
   // let [auth,setAuth] =useContextData()
@@ -10,7 +10,13 @@ function Home() {
   return (
     <Layout title={"Home"}>
       {/* <pre>{JSON.stringify(auth)}</pre> */}
-      <h2>Home</h2>
+    
+
+<h2>HOME</h2>
+
+
+
+
     </Layout>
   )
 }

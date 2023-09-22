@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate,useLocation, Navigate } from "react-router-dom";
 
-function Spinner() {
+function Spinner({path='login'}) {
   let natigate = useNavigate();
   let location =useLocation()
 
-  console.log(location)
+  // console.log(location)
 
   let [timer, setTimer] = useState(5);
 
@@ -13,14 +13,14 @@ function Spinner() {
     let interval = setInterval(() => {
       setTimer((prev) => --prev);
     }, 1000);
-    timer == 0 && natigate("/login",{
+    timer == 0 && natigate(`/${path}`,{
         state:location.pathname
     });
 
     return () => {
       clearInterval(interval);
     };
-  }, [timer,Navigate,location]);
+  }, [timer,Navigate,location,path]);
 
   return (
     <div className="flex  justify-center  my-60">

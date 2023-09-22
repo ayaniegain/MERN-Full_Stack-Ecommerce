@@ -5,7 +5,7 @@ const { hashPassword, comparePassword } = require("../helpers/authHelper");
 //post -->Register
 const registerController = async (req, res) => {
   try {
-    let { name, email, password, phone, address } = req.body;
+    let { name, email, password, phone, address ,answer } = req.body;
     if (!name) {
       return res.send({ message: "Name is Required" });
     }
@@ -20,6 +20,9 @@ const registerController = async (req, res) => {
     }
     if (!address) {
       return res.send({ message: "address is Required" });
+    }
+    if (!answer) {
+      return res.send({ message: "answer is Required" });
     }
     const existingUser = await userModel.findOne({ email });
     //existing user
@@ -38,6 +41,7 @@ const registerController = async (req, res) => {
       password: hashedPassword,
       phone,
       address,
+      answer
     }).save();
 
     // console.log("user",user)
@@ -89,8 +93,8 @@ const LoginController = async (req, res) => {
       process.env.JWT_SECRECT_KEY,
       { expiresIn: "7d" }
     );
-    let loginStatus=true
-    
+    let loginStatus = true;
+
     res.status(200).send({
       success: true,
       message: "User Login Successfully",
@@ -99,9 +103,10 @@ const LoginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.name,
+        role: user.role,
       },
       token,
-      loginStatus
+      loginStatus,
     });
   } catch (error) {
     console.log(error);
@@ -112,12 +117,12 @@ const LoginController = async (req, res) => {
     });
   }
 };
-// test get request 
+// test get request
 const testController = async (req, res) => {
   try {
-    const user = await userModel.find()
+    const user = await userModel.find();
     res.send("Protected route");
-    console.log("usercheck",user)
+    console.log("usercheck", user);
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -127,17 +132,88 @@ const testController = async (req, res) => {
     });
   }
 };
-const proterConroller = async (req, res) => {
+
+//protected user route GET
+const proterUserConroller = async (req, res) => {
   try {
-    res.status(200).send({"ok":true})
+    res.status(200).send({ ok: true });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in Protected route ",
+      message: "Error in user Protected route ",
+      error,
+    });
+  }
+};
+//protected admin route GET
+const proterAdminConroller = async (req, res) => {
+  try {
+    res.status(200).send({ ok: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in admin Protected route ",
       error,
     });
   }
 };
 
-module.exports = { registerController, LoginController, testController,proterConroller };
+//forget password POST
+const forgotPasswordController = async (req, res) => {
+  try {
+    const { email, answer, newPassword } = req.body;
+
+    console.log("e",email)
+    console.log("a",answer)
+    console.log("p",newPassword)
+
+    if (!email) {
+      return res.send({ message: "email is Required" });
+    }
+    if (!answer) {
+      return res.send({ message: "answer is Required" });
+    }
+    if (!newPassword) {
+      return res.send({ message: "newPassword is Required" });
+    }
+    //check
+    const user = await userModel.findOne({ email, answer});
+    
+    //validation
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "Wrong Email Or Answer",
+      });
+    }
+
+    const hashed = await hashPassword(newPassword);
+
+     await userModel.findByIdAndUpdate(user._id, { password: hashed });
+
+    res.status(200).send({
+      success: true,
+      message: " password reset successfully",
+    }
+    
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in forgot password",
+      error,
+    });
+  }
+};
+
+module.exports = {
+  registerController,
+  LoginController,
+  testController,
+  proterUserConroller,
+  proterAdminConroller,
+  forgotPasswordController,
+};
