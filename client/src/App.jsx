@@ -12,17 +12,27 @@ import {Private} from "./component/Routes/Private";
 import ForgotPassword from "./component/pages/Auth/forgotPassword";
 import { AdminRoute } from "./component/Routes/AdminRoute";
 import AdminDashboard from "./component/pages/Admin/AdminDashboard";
+import CreateCatagory from "./component/pages/Admin/CreateCatagory";
+import CreateProduct from "./component/pages/Admin/CreateProduct ";
+import CreateUser from "./component/pages/Admin/CreateUser";
+import Orders from "./component/pages/user/Orders";
+import Profile from "./component/pages/user/Profile";
 
 function App() {
   return (
 
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/dashboard" element={<Private />}>
-      <Route path="user" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Private />}>
+        <Route path="user" element={<Dashboard />} />
+        <Route path="user/create-profile" element={<Profile />} />
+        <Route path="user/create-order" element={<Orders />} />
       </Route>
       <Route path="/dashboard" element={<AdminRoute />}>
-      <Route path="admin" element={<AdminDashboard />} />
+        <Route path="admin" element={<AdminDashboard />} />
+        <Route path="admin/create-catagory" element={<CreateCatagory />} />
+        <Route path="admin/create-product" element={<CreateProduct />} />
+        <Route path="admin/create-users" element={<CreateUser />} />
       </Route>
       <Route path="/contact" element={<Contact />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
