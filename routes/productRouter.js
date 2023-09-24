@@ -1,4 +1,4 @@
-const { deleteProductController,createProductController,updateCategoryController,getAllproductsController,singleproductController, productPhotoController } =require ("../controller/productController")
+const { deleteProductController,createProductController,getAllproductsController,singleproductController, productPhotoController, updateProductController } =require ("../controller/productController")
 const { isAdmin, requireSignIn } =require ("../middleware/authMiddleware")
 
 const express = require("express")
@@ -18,9 +18,11 @@ router.get("/single-product/:slug", singleproductController)
 //routes delete  
 router.get("/delete-product/:id", deleteProductController)
 
-//routes photo  
+//photo get route 
 router.get("/photo-product/:pid", productPhotoController)
 
+//routes update  
 
+router.put("/update-product/:pid",requireSignIn,isAdmin,formidableMiddleware(),updateProductController);
 
 module.exports= router
