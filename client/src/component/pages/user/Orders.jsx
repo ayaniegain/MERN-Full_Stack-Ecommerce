@@ -4,7 +4,7 @@ import Layout from '../../layout/Layout'
 
 function Orders() {
   return (
-    <Layout title={order}>
+    <Layout title={'order'}>
     <div className="flex col">
       <div className="mx-6 my-4">
         <UserMenu />

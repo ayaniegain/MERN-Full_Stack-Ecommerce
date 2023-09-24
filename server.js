@@ -5,6 +5,8 @@ const colors = require("colors");
 const connectDB = require("./config/db");
 const cors =require("cors")
 const authRoutes  = require("./routes/authRoute");
+const categoryRoutes  = require("./routes/categoryRoute");
+const productRoutes  = require("./routes/productRouter");
 
 //config env
 dotenv.config();
@@ -22,6 +24,8 @@ app.use(cors())
 
 //Routes 
 app.use("/api/v1/auth",authRoutes );
+app.use("/api/v1/category",categoryRoutes );
+app.use("/api/v1/product",productRoutes );
 //port
 const PORT = process.env.PORT || 8080;
 

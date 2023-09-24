@@ -121,7 +121,10 @@ const LoginController = async (req, res) => {
 const testController = async (req, res) => {
   try {
     const user = await userModel.find();
-    res.send("Protected route");
+    res.status(200).send({
+      success: true,
+      message: "protected route",
+    })
     console.log("usercheck", user);
   } catch (error) {
     console.log(error);

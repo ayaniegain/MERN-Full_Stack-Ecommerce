@@ -14,7 +14,7 @@ router.post('/login',LoginController)
 router.post('/forgot-password', forgotPasswordController)
 
 //test get route
-router.get('/test',isAdmin,requireSignIn,testController)
+router.get('/test',requireSignIn,testController)
 
 //protected user route
 router.get('/user-auth',requireSignIn,proterUserConroller)
