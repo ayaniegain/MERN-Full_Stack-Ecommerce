@@ -13,7 +13,7 @@ router.get("/getall-category", getAllCategoryController)
 //routes single  
 router.get("/single-category/:slug", singleCategoryController)
 //routes delete  
-router.get("/delete-category/:id",requireSignIn,isAdmin, deleteCategoryController)
+router.delete("/delete-category/:id",requireSignIn,isAdmin, deleteCategoryController)
 
 
 

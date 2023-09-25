@@ -7,7 +7,7 @@ function Spinner({path='login'}) {
 
   // console.log(location)
 
-  let [timer, setTimer] = useState(5);
+  let [timer, setTimer] = useState(3);
 
   useEffect(() => {
     let interval = setInterval(() => {

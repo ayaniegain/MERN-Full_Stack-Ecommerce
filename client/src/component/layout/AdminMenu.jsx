@@ -1,31 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function AdminMenu() {
   return (
     <>
       <div className=" m-4 font-medium text-gray-900 bg-white border border-gray-200 rounded-lg ">
-        <Link   to="/dashboard/admin" className="block w-full px-4 py-6 text-white bg-blue-700">
+        <Link   to="/dashboard/admin" className="block w-full px-4 py-6  bg-gray-300 ">
           Admin Panal
         </Link>
-        <Link
+        <NavLink
+          
           to="/dashboard/admin/create-catagory"
           className="block   w-full px-4 py-6 border-b border-gray-200 cursor-pointer hover:bg-gray-100"
         >
           Create Category
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
+          
           to="/dashboard/admin/create-product"
           className="block w-full px-4 py-6 border-b border-gray-200 cursor-pointer hover:bg-gray-100 "
         >
           Create product
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
+           
           to="/dashboard/admin/create-users"
           className="block w-full px-4 py-6 rounded-b-lg cursor-pointer hover:bg-gray-100 "
         >
           User
-        </Link>
+        </NavLink>
       </div>
     </>
   );

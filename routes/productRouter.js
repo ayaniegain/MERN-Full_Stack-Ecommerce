@@ -16,7 +16,7 @@ router.get("/getall-product", getAllproductsController)
 router.get("/single-product/:slug", singleproductController)
 
 //routes delete  
-router.get("/delete-product/:id", deleteProductController)
+router.delete("/delete-product/:id", deleteProductController)
 
 //photo get route 
 router.get("/photo-product/:pid", productPhotoController)

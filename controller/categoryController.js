@@ -7,6 +7,9 @@ const createCategoryController = async (req, res) => {
     if (!name) {
       return res.status(401).send({ message: "name is required " });
     }
+    if (name=="") {
+      return res.status(401).send({ message: "name is null " });
+    }
     const existingCategory = await categoryModel.findOne({ name });
 
     //existing user
@@ -21,6 +24,16 @@ const createCategoryController = async (req, res) => {
       name,
       slug: slugify(name),
     }).save();
+
+    // if(category.name==""){
+    //   res.status(500).send({
+    //     success: false,
+    //     error,
+    //     message: "category name null",
+    //   });
+    // }
+
+    console.log(category.name)
     res.status(200).send({
       success: true,
       message: "Category created",

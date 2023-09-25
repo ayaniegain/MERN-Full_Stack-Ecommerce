@@ -28,11 +28,11 @@ function Header() {
       <nav className="bg-white dark:bg-gray-900 shadow">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
           <Link to={"/"} className="flex items-center">
-            <img
+            {/* <img
               src="https://flowbite.com/docs/images/logo.svg"
               className="h-8 mr-3"
               alt="Flowbite Logo"
-            />
+            /> */}
             <span className=" self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               ECommerce
             </span>
@@ -76,21 +76,21 @@ function Header() {
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdown"
                     >
-                      <NavLink
+                      <Link
                         className="dropdown-item"
                         to={`/dashboard/${
                           auth?.user?.role == 1 ? "admin" : "user"
                         }`}
                       >
                         Dashboard
-                      </NavLink>
-                      <NavLink
+                      </Link>
+                      <Link
                         className="dropdown-item"
                         onClick={handleClick}
                         to="/login"
                       >
                         Logout
-                      </NavLink>
+                      </Link>
                     </div>
                   </div>
                 )}
