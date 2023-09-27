@@ -16,7 +16,6 @@ function UpdateProduct() {
   let [quantity, setQuantity] = useState("");
   let [photo, setPhoto] = useState("");
   // let [shipping, setShipping] = useState(true);
-  // let [id, setId] = useState('65134460afcf804a96a9af78');
   let [id, setId] = useState('');
 
 //get single product
