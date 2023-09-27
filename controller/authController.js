@@ -125,7 +125,7 @@ const testController = async (req, res) => {
       success: true,
       message: "protected route",
     })
-    console.log("usercheck", user);
+    // console.log("usercheck", user);
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -168,9 +168,9 @@ const forgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
 
-    console.log("e",email)
-    console.log("a",answer)
-    console.log("p",newPassword)
+    // console.log("e",email)
+    // console.log("a",answer)
+    // console.log("p",newPassword)
 
     if (!email) {
       return res.send({ message: "email is Required" });

@@ -13,10 +13,12 @@ import ForgotPassword from "./component/pages/Auth/forgotPassword";
 import { AdminRoute } from "./component/Routes/AdminRoute";
 import AdminDashboard from "./component/pages/Admin/AdminDashboard";
 import CreateCatagory from "./component/pages/Admin/CreateCatagory";
-import CreateProduct from "./component/pages/Admin/CreateProduct ";
+import CreateProduct from "./component/pages/Admin/CreateProduct";
 import CreateUser from "./component/pages/Admin/CreateUser";
 import Orders from "./component/pages/user/Orders";
 import Profile from "./component/pages/user/Profile";
+import Products from "./component/pages/Admin/Products";
+import UpdateProduct from "./component/pages/Admin/UpdateProduct";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
       </Route>
       <Route path="/dashboard" element={<AdminRoute />}>
         <Route path="admin" element={<AdminDashboard />} />
+        <Route path="admin/products" element={<Products />} />
+        <Route path="admin/products/:slug" element= {<UpdateProduct />}/>
         <Route path="admin/create-catagory" element={<CreateCatagory />} />
         <Route path="admin/create-product" element={<CreateProduct />} />
         <Route path="admin/create-users" element={<CreateUser />} />

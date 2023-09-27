@@ -19,7 +19,7 @@ const requireSignIn = async (req, res, next) => {
 const isAdmin = async (req, res, next) => {
   try {
     const user = await userModel.findById(req.user._id);
-    console.log(user)
+    // console.log(user)
     if (user.role !== 1) {
         res.status(401).send({
             success: false,
@@ -27,7 +27,7 @@ const isAdmin = async (req, res, next) => {
             message: "UnAuthorized Access",
         });
     } else {
-        console.log(user)
+        // console.log(user)
       next();
     }
   } catch (error) {

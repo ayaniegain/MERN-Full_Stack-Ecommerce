@@ -14,7 +14,6 @@ function CreateCatagory() {
   const [selected, setSelected] = useState(null);
   let [updatedName, setupdatedName] = useState("");
 
-  console.log("first")
   
   async function getCatagoryApi() {
     try {
@@ -97,6 +96,7 @@ function CreateCatagory() {
           <AdminMenu />
         </div>
         <div className="p-6 my-8">
+        <h1 className="text-3xl pb-4">Create Category</h1>
           <CategoryForm
             handleSubmit={handleSubmit}
             value={name}

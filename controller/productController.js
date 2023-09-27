@@ -38,12 +38,13 @@ const createProductController = async (req, res) => {
       ...req.fields,
       slug: slugify(name),
     });
+
     if (photo) {
       products.photo.data = fs.readFileSync(photo.path);
       products.photo.contentType = photo.type;
     }
     await products.save();
-
+    console.log(products)
     res.status(200).send({
       success: true,
       message: "product created",
@@ -78,6 +79,7 @@ const updateProductController = async (req, res) => {
       return res.status(500).send({ error: "Category is Required" });
     case !quantity:
       return res.status(500).send({ error: "Quantity is Required" });
+   
     case photo && photo.size > 1000000:
       return res
         .status(500)

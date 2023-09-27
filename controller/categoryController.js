@@ -33,7 +33,7 @@ const createCategoryController = async (req, res) => {
     //   });
     // }
 
-    console.log(category.name)
+    // console.log(category.name)
     res.status(200).send({
       success: true,
       message: "Category created",

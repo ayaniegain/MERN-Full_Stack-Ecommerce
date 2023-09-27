@@ -44,7 +44,7 @@ function Spinner({path='login'}) {
       </div>
       <br />
       <h2 className="text-green-600 text-3xl ">
-        redirect to login page... {timer}
+        Redirect to Page... {timer}
       </h2>
     </div>
   );
