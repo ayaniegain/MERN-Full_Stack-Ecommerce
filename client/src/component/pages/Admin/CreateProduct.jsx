@@ -70,6 +70,7 @@ function CreateProduct() {
       toast.error("something went wrong");
     }
   };
+  console.log(categories)
 
   return (
     <Layout>
@@ -95,7 +96,7 @@ function CreateProduct() {
                 <option>Choose a Category</option>
                 {categories.map((e) => (
                   <option key={e._id} value={e._id}>
-                    {e.name}
+                    {e._id}
                   </option>
                 ))}
               </select>

@@ -34,7 +34,7 @@ async function getsingleProduct(){
 
             // setShipping(data.product.shipping);
 
-            console.log(data)
+            // console.log(data)
       } catch (error) {
         console.log(error);
       }
@@ -61,13 +61,14 @@ async function getsingleProduct(){
     let {data} = await axios.delete(
         `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/delete-product/${id}`
         );
-
-      toast.success("Product DEleted Succfully");
-      navigate("/dashboard/admin/products");
-  } catch (error) {
-    console.log(error);
-    toast.success("Product DEleted Succfully");
-    navigate("/dashboard/admin/products");
+        if (data?.success) {
+          toast.success("Product DEleted Succfully");
+          navigate("/dashboard/admin/products");
+        }  
+      } catch (error) {
+        console.log(error);
+        toast.error(data?.message);
+   
   }
 
 
@@ -99,11 +100,11 @@ async function getsingleProduct(){
       );
       console.log(data)
       if (data?.success) {
-        toast.error(data?.message);
-       
-      } else {
         toast.success("Product Created Successfully");
         navigate("/dashboard/admin/products");
+        
+      } else {
+        toast.error(data?.message);
         
       }
     } catch (error) {
