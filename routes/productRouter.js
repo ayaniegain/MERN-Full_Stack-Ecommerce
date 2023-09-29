@@ -1,4 +1,4 @@
-const { deleteProductController,productListController,createProductController,productFilterController,getAllproductsController,singleproductController, productPhotoController, updateProductController, productCountController } =require ("../controller/productController")
+const { deleteProductController,productListController,searchController,createProductController,productFilterController,getAllproductsController,singleproductController, productPhotoController, updateProductController, productCountController } =require ("../controller/productController")
 const { isAdmin, requireSignIn } =require ("../middleware/authMiddleware")
 
 const express = require("express")
@@ -35,6 +35,11 @@ router.post("/product-filters",productFilterController);
 // //product list 
 
 // router.get("/product-list/:page",productListController);
+
+
+// search product
+
+router.get("/search/:keyword",searchController);
 
 
 module.exports= router
