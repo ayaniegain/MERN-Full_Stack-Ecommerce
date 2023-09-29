@@ -3,12 +3,12 @@ import axios from "axios";
 import  React, {createContext, useState,useContext,useEffect } from "react";
 
 //create context
- const ContextData = createContext();
+ const AuthContext = createContext();
 
 //declire function
 // context provider
 
- const ContextProvider = ({ children }) => {
+ const AuthProvider = ({ children }) => {
   //declared state
 
   let [auth, setAuth] = useState({
@@ -38,9 +38,9 @@ useEffect(()=>{
 
 
   return(
-  <ContextData.Provider value={[ auth, setAuth ]}>
+  <AuthContext.Provider value={[ auth, setAuth ]}>
     {children}
-  </ContextData.Provider>
+  </AuthContext.Provider>
     )
 };
 
@@ -49,8 +49,8 @@ useEffect(()=>{
 //usecontext
 
 const useContextData = () => {
-  return useContext(ContextData);
+  return useContext(AuthContext);
 };
 
 //export context
-export {useContextData,ContextProvider};
+export {useContextData,AuthProvider};
