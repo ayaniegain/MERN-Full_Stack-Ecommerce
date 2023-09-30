@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Price } from "../../assets/Price";
 import Button from "../../assets/Buttton";
+import { Link } from "react-router-dom";
 
 function Home() {
   let [products, setProducts] = useState([]);
@@ -230,9 +231,9 @@ let handleLoadingChange=()=>{
             <h1 className="text-3xl font-bold text-center">All Products</h1>
             <div className="flex  justify-between gap-4 mx-2 my-4 flex-wrap w-full  ">
               {initialPosts?.map((item) => (
-                <section
+                <Link
                   key={item._id}
-                  to={`/dashboard/admin/products/${item.slug}`}
+                  to={`/product/${item.slug}`}
                 >
                   <div className="max-w-xs w-64 h-full rounded overflow-hidden shadow-lg border">
                     <img
@@ -257,7 +258,7 @@ let handleLoadingChange=()=>{
                       </button>
                     </div>
                   </div>
-                </section>
+                </Link>
               ))}
             </div>
             <div className="d-grid mx-auto  my-20 w-6/12 content-center  bg-blue-800 text-white">
