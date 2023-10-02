@@ -1,10 +1,10 @@
 import React from "react";
 import Layout from "../../layout/Layout";
-import { useContextData } from "../../context/useAuth";
+import { useAuth } from "../../context/useAuth";
 import UserMenu from "../../layout/UserMenu";
 
 function Dashboard() {
-  let [auth] = useContextData();
+  let [auth] = useAuth();
   return (
     <Layout>
       <div className="flex col">

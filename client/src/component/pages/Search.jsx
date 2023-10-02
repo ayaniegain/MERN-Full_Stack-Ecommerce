@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../layout/Layout";
 import { useSearch } from "../context/search";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Search() {
   const [values, setValues] = useSearch();
@@ -43,9 +43,10 @@ function Search() {
               </h1>
               <div className="flex  gap-4 mx-2 my-4 flex-wrap w-full  ">
                 {values?.results.map((item) => (
-                  <section
+                  <Link
                     key={item._id}
-                    to={`/dashboard/admin/products/${item.slug}`}
+                  to={`/product/${item.slug}`}
+
                   >
                     <div className="max-w-xs w-64 h-full rounded overflow-hidden shadow-lg border">
                       <img
@@ -73,7 +74,7 @@ function Search() {
                         </button>
                       </div>
                     </div>
-                  </section>
+                  </Link>
                 ))}
               </div>
             </div>

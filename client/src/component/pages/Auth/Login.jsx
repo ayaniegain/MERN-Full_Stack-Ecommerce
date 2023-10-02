@@ -3,11 +3,11 @@ import Layout from '../../layout/Layout'
 import { NavLink,useNavigate,useLocation, Link} from "react-router-dom";
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import  {useContextData}  from "../../context/useAuth";
+import  {useAuth}  from "../../context/useAuth";
 
 
 function Login() {
-  let [auth,setAuth] =useContextData()
+  let [auth,setAuth] =useAuth()
   let location =useLocation()
   const navigate = useNavigate();
   const[data,setData]=useState({

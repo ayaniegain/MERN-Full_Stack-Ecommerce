@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useContextData } from "../context/useAuth";
+import { useAuth } from "../context/useAuth";
 import { Outlet } from "react-router-dom";
 import Spinner from "../../assets/Spinner";
 
 export const AdminRoute = () => {
   const [ok, setOk] = useState(false);
-  let [auth, setAuth] = useContextData();
+  let [auth, setAuth] = useAuth();
 
   useEffect(() => {
     let authCheck = async () => {

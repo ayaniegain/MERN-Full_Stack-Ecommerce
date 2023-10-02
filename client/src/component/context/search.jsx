@@ -4,13 +4,13 @@ import  React, {createContext, useState,useContext } from "react";
 //create context
  const SrarchContext = createContext();
  const  SrarchProvider = ({ children }) => {
-  let [auth, setAuth] = useState({
+  let [values, setvalues] = useState({
    keyword:'',
    results:[]
   });
 
   return(
-  <SrarchContext.Provider value={[ auth, setAuth ]}>
+  <SrarchContext.Provider value={[ values, setvalues ]}>
     {children}
   </SrarchContext.Provider>
     )

@@ -48,9 +48,9 @@ useEffect(()=>{
 
 //usecontext
 
-const useContextData = () => {
+const useAuth = () => {
   return useContext(AuthContext);
 };
 
 //export context
-export {useContextData,AuthProvider};
+export {useAuth,AuthProvider};

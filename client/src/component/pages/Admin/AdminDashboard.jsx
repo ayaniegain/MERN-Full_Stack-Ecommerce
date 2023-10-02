@@ -1,12 +1,12 @@
 import React from 'react'
 import Layout from '../../layout/Layout'
 import AdminMenu from '../../layout/AdminMenu'
-import { useContextData } from "../../context/useAuth";
+import { useAuth } from "../../context/useAuth";
 
 
 
 function AdminDashboard() {
-  let [auth] = useContextData();
+  let [auth] = useAuth();
   return (
     <Layout>
     <div className='flex col'>

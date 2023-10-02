@@ -5,6 +5,9 @@ import axios from "axios";
 import { Price } from "../../assets/Price";
 import Button from "../../assets/Buttton";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/cart";
+import Simmer from "../../assets/Simmer";
+
 
 function Home() {
   let [products, setProducts] = useState([]);
@@ -15,8 +18,9 @@ function Home() {
   // let [total, setTotal] = useState(0);
   let [page, setPage] = useState(6);
   let [loading, setLoading] = useState(false);
+  let initialPosts  = products.slice(0, page)
+  let [cart,setCart]=useCart()
 
-   let initialPosts  = products.slice(0, page)
 
   //get catagory
   async function getAllCatagories() {
@@ -154,6 +158,14 @@ let handleLoadingChange=()=>{
   const handlereset = () => {
     window.location.reload();
   };
+//cart
+  const handleCart=(e,item)=>{
+    e.preventDefault();
+
+    setCart([...cart,item])
+    localStorage.setItem('cart', JSON.stringify([...cart,item]));
+    toast.success("item added to cart")
+  }
 
   return (
     <Layout title={"Home"}>
@@ -230,6 +242,7 @@ let handleLoadingChange=()=>{
           <div className="p-6  w-full">
             <h1 className="text-3xl font-bold text-center">All Products</h1>
             <div className="flex  justify-between gap-4 mx-2 my-4 flex-wrap w-full  ">
+            {initialPosts.length>0 ?<>
               {initialPosts?.map((item) => (
                 <Link
                   key={item._id}
@@ -253,13 +266,14 @@ let handleLoadingChange=()=>{
                       <span className="text-gray-700 text-base font-semibold">
                         ₹ {item.price}
                       </span>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right">
+                      <button onClick={(e)=>handleCart(e,item)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right">
                         Buy Now
                       </button>
                     </div>
                   </div>
                 </Link>
               ))}
+            </> : <Simmer/> }
             </div>
             <div className="d-grid mx-auto  my-20 w-6/12 content-center  bg-blue-800 text-white">
         {loading ? (
@@ -271,9 +285,13 @@ let handleLoadingChange=()=>{
             That's It
           </button>
         ) : (
-          <button onClick={handleLoadingChange} type="button" className="btn btn-danger  no-border">
+
+          initialPosts.length>0 &&
+
+            <button onClick={handleLoadingChange} type="button" className="btn btn-danger  no-border">
             Load More +
-          </button>
+            </button>
+          
         )}
       </div>
           </div>

@@ -218,42 +218,47 @@ function ProductDetails() {
         </div>
       </section>
 
-      <div className="p-6  w-full">
-            <h1 className="text-2xl font-bold text-center">similar Products</h1>
-            <div className="flex  justify-start gap-4 mx-2 my-4 flex-wrap w-full  ">
-              {relatedProducts?.map((item) => (
-                <Link
-                  key={item._id}
-                  to={`/`}
-                >
-                  <div className="max-w-xs w-64 h-full rounded overflow-hidden shadow-lg border">
-                    <img
-                      className="w-full "
-                      src={`${
-                        import.meta.env.VITE_REACT_APP_API
-                      }/api/v1/product/photo-product/${item._id}`}
-                      alt="Product Image"
-                    />
-                    <div className="px-6 py-4">
-                      <div className="font-bold text-xl mb-2"> {item.name}</div>
-                      <p className="text-gray-700 text-base">
-                        {item.description}
-                      </p>
-                    </div>
-                    <div className="px-6 py-4">
-                      <span className="text-gray-700 text-base font-semibold">
-                        ₹ {item.price}
-                      </span>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right">
-                        Buy Now
-                      </button>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+   {
+    relatedProducts.length>0?   <div className="p-6  w-full">
+    <h1 className="text-2xl font-bold text-center">similar Products</h1>
+    <div className="flex  justify-start gap-4 mx-2 my-4 flex-wrap w-full  ">
+      {relatedProducts?.map((item) => (
+        <Link
+          key={item._id}
+          to={`/`}
+        >
+          <div className="max-w-xs w-64 h-full rounded overflow-hidden shadow-lg border">
+            <img
+              className="w-full "
+              src={`${
+                import.meta.env.VITE_REACT_APP_API
+              }/api/v1/product/photo-product/${item._id}`}
+              alt="Product Image"
+            />
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2"> {item.name}</div>
+              <p className="text-gray-700 text-base">
+                {item.description}
+              </p>
             </div>
-            
+            <div className="px-6 py-4">
+              <span className="text-gray-700 text-base font-semibold">
+                ₹ {item.price}
+              </span>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right">
+                Buy Now
+              </button>
+            </div>
           </div>
+        </Link>
+      ))}
+    </div>
+    
+  </div> :
+   <div className="flex justify-center my-4 font-medium text-2xl">
+    <h1 >No similar product found</h1>
+  </div>
+   }
     </Layout>
   );
 }

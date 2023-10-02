@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 import { Link, NavLink, useNavigate, useNavigation } from "react-router-dom";
-import { useContextData } from "../context/useAuth";
+import { useAuth } from "../context/useAuth";
 import toast from "react-hot-toast";
 import SearchInput from "../Form/SearchInput";
+import { useCart } from "../context/cart";
+
 
 function Header() {
   let navigate = useNavigate();
-
-  let [auth, setAuth] = useContextData();
+  let [cart,setCart]=useCart()
+  let [auth, setAuth] = useAuth();
   let loginStatus = auth.loginStatus;
 
   const handleClick = () => {
@@ -35,7 +37,7 @@ function Header() {
               alt="Flowbite Logo"
             /> */}
             <span className=" self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              ECommerce
+             🦉 Krazy-Kart
             </span>
           </Link>
           {/* //search bar */}
@@ -99,16 +101,21 @@ function Header() {
                 )}
               </div>
 
+              <NavLink to={"/cart"}>
+                <li className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                   Cart  
+                 <span className="text-red-500 mx-2 font-bold">
+                     ({cart.length})
+                  </span>
+                </li>
+              </NavLink>
+            
               <NavLink to={"/contact"}>
                 <li className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                   Contact
                 </li>
               </NavLink>
-              <NavLink to={"/policy"}>
-                <li className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                  Policy
-                </li>
-              </NavLink>
+          
             </ul>
           </div>
         </div>
