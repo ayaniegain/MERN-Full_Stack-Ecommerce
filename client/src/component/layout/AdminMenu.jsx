@@ -30,12 +30,13 @@ function AdminMenu() {
           Products
         </NavLink>
         <NavLink
-           
-          to="/dashboard/admin/create-users"
-          className="block w-full px-4 py-6 rounded-b-lg cursor-pointer hover:bg-gray-100 "
+          
+          to="/dashboard/admin/create-order"
+          className="block w-full px-4 py-6 border-b border-gray-200 cursor-pointer hover:bg-gray-100 "
         >
-          User
+          Orders
         </NavLink>
+      
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-const { deleteProductController,productListController,relatedProductController,searchController,createProductController,productFilterController,getAllproductsController,singleproductController, productPhotoController, updateProductController, productCountController } =require ("../controller/productController")
+const { deleteProductController,braintreePaymentController,braintreeTokenController,productListController,relatedProductController,searchController,createProductController,productFilterController,getAllproductsController,singleproductController, productPhotoController, updateProductController, productCountController } =require ("../controller/productController")
 const { isAdmin, requireSignIn } =require ("../middleware/authMiddleware")
 
 const express = require("express")
@@ -45,5 +45,10 @@ router.get("/search/:keyword",searchController);
 
 router.get('/related-product/:pid/:cid',relatedProductController)
 
+//payment routes
+router.get("/braintree/token",braintreeTokenController);
+
+// payments
+router.post("/braintree/payment", requireSignIn,braintreePaymentController)
 
 module.exports= router

@@ -13,7 +13,6 @@ import { AdminRoute } from "./component/Routes/AdminRoute";
 import AdminDashboard from "./component/pages/Admin/AdminDashboard";
 import CreateCatagory from "./component/pages/Admin/CreateCatagory";
 import CreateProduct from "./component/pages/Admin/CreateProduct";
-import CreateUser from "./component/pages/Admin/CreateUser";
 import Orders from "./component/pages/user/Orders";
 import Profile from "./component/pages/user/Profile";
 import Products from "./component/pages/Admin/Products";
@@ -21,6 +20,7 @@ import UpdateProduct from "./component/pages/Admin/UpdateProduct";
 import Search from "./component/pages/Search";
 import ProductDetails from "./component/pages/ProductDetails";
 import CartPage from "./component/pages/CartPage";
+import AdminOrder from "./component/pages/Admin/AdminOrder";
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
         <Route path="admin/products/:slug" element= {<UpdateProduct />}/>
         <Route path="admin/create-catagory" element={<CreateCatagory />} />
         <Route path="admin/create-product" element={<CreateProduct />} />
-        <Route path="admin/create-users" element={<CreateUser />} />
+        <Route path="admin/create-order" element={<AdminOrder />} />
       </Route>
       <Route path="/contact" element={<Contact />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
