@@ -240,16 +240,21 @@ const productFilterController = async (req, res) => {
   try {
     const { checked, radio } = req.body;
 
+    console.log(checked);
+
     let radioArray = radio;
     if (radio.length > 0) {
       radioArray = radio.split(",");
     }
 
+    
     let args = {};
     if (checked.length > 0) args.category = checked;
     if (radio.length) args.price = { $gte: radioArray[0], $lte: radioArray[1] };
     const products = await productModel.find(args);
     console.log("args", args);
+    console.log("products", products);
+
     res.status(200).send({
       success: true,
       products,
@@ -263,6 +268,46 @@ const productFilterController = async (req, res) => {
     });
   }
 };
+
+//product sort 
+
+const productSortController=async(req,res)=>{
+
+  try {
+    const { sort } = req.query;
+
+    let products;
+  
+    switch (sort) {
+      case 'high-to-low':
+        products = await productModel.find().sort({ price: -1 });
+        break;
+      case 'low-to-high':
+        products = await productModel.find().sort({ price: 1 });
+        break;
+      case 'relevance':
+        products = await productModel.find();
+        // Implement your relevance sorting logic here
+        break;
+      default:
+        products = await productModel.find();
+    }
+    res.status(200).send({
+      success: true,
+      products,
+    });
+
+    
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error WHile sorting Products",
+      error,
+    });
+  }
+
+}
 
 // //product count
 
@@ -421,6 +466,7 @@ module.exports = {
   productPhotoController,
   deleteProductController,
   productFilterController,
+  productSortController,
   searchController,
   relatedProductController,
   braintreeTokenController,

@@ -19,7 +19,8 @@ function Home() {
   let [page, setPage] = useState(6);
   let [loading, setLoading] = useState(false);
   let initialPosts  = products.slice(0, page)
-  let [cart,setCart]=useCart()
+  let [cart,setCart]=useCart() //usecontext
+  const [sort, setSort] = useState('')  
 
 
   //get catagory
@@ -54,23 +55,23 @@ function Home() {
   };
 
   //handle filter dropdown
-  const handleFilter = (cid) => {
-    setFilterCatagory(cid?.target?.value);
-  };
+  // const handleFilter = (cid) => {
+  //   setFilterCatagory(cid?.target?.value);
+  // };
 
-  function getFilteredList() {
+  // function getFilteredList() {
 
-    if (!filterCatagory) {
-      return products;
-    }
-    if (filterCatagory == "") {
-      return products;
-    }
-    return products.filter((p) => filterCatagory === p.category._id);
-  }
+  //   if (!filterCatagory) {
+  //     return products;
+  //   }
+  //   if (filterCatagory == "") {
+  //     return products;
+  //   }
+  //   return products.filter((p) => filterCatagory === p.category._id);
+  // }
 
-  // Avoid duplicate function calls with useMemo
-  products = useMemo(getFilteredList, [filterCatagory, products]);
+  // // Avoid duplicate function calls with useMemo
+  // products = useMemo(getFilteredList, [filterCatagory, products]);
 
   //handle filter checkbox
   const handleFiltercheck = (checkedItem, id) => {
@@ -137,10 +138,19 @@ let handleLoadingChange=()=>{
       console.log(error);
     }
   };
+// get shorted
+const fetchsortedProducts = async () => {
+  try {
+    const { data } = await axios.get(`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/product-sort?sort=${sort}`);
+        setProducts(data?.products);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-  // page>6?setProducts(products):setProducts( products.slice(0,page))
-
-
+  useEffect(() => {
+   if(sort) fetchsortedProducts();
+  }, [sort]);
 
   useEffect(() => {
     getAllCatagories();
@@ -174,22 +184,18 @@ let handleLoadingChange=()=>{
         <aside className="lg:w-1/5 p-4 my-20 bg-gray-200 sm:w-2/4">
           {/* Your filter options can go here */}
           {/* Example filter options */}
-          <h2 className="text-lg font-semibold mb-4">Filter By:</h2>
-          <div className="mb-4">
-            <label className="block text-sm font-medium">Category</label>
-            <select
-              className="form-select mt-1 block w-full"
-              onChange={(e) => handleFilter(e)}
-            >
-              <option value={""}>Choose a Category</option>
-              {categories.map((e) => (
-                <option key={e._id} value={e._id}>
-                  {e.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <h2 className="text-lg font-semibold mb-3">Sort By:</h2>
 
+          <div>
+        <select  className="form-select mt-1 block w-full my-3" onChange={(e) => setSort(e.target.value)}>
+          <option value="">Select Price</option>
+          <option value="high-to-low">High to Low</option>
+          <option value="low-to-high">Low to High</option>
+          <option value="relevance">Relevance</option>
+        </select>
+      </div>
+
+          <h2 className="text-lg font-semibold mb-3">Filter By:</h2>
           <div className="mb-4 xl:col ">
             <label className="block mb-2 text-sm font-medium">Categories</label>
             <div className="flex justify-start  flex-wrap space-x-2 ">

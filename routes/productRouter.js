@@ -1,4 +1,4 @@
-const { deleteProductController,braintreePaymentController,braintreeTokenController,productListController,relatedProductController,searchController,createProductController,productFilterController,getAllproductsController,singleproductController, productPhotoController, updateProductController, productCountController } =require ("../controller/productController")
+const { deleteProductController,braintreePaymentController,braintreeTokenController,productSortController,productListController,relatedProductController,searchController,createProductController,productFilterController,getAllproductsController,singleproductController, productPhotoController, updateProductController, productCountController } =require ("../controller/productController")
 const { isAdmin, requireSignIn } =require ("../middleware/authMiddleware")
 
 const express = require("express")
@@ -27,6 +27,9 @@ router.put("/update-product/:pid",requireSignIn,isAdmin,formidableMiddleware(),u
 
 //filter product
 router.post("/product-filters",productFilterController);
+
+//sort product
+router.get("/product-sort",productSortController);
 
 // // product count 
 

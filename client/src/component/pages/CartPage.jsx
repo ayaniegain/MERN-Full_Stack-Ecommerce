@@ -97,7 +97,8 @@ function CartPage() {
                 className="lg:flex  lg:row mx-20 rounded-lg w-2/3 overflow-auto  md:w-2/3"
                 key={item._id}
               >
-                <div className="mb-6 w-auto rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                {/* max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl */}
+                <div className="overflow-hidden md:max-w-2xl mb-6 w-auto rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                   {/* <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="product-image" className="w-full rounded-lg sm:w-40" /> */}
                   <img
                     className="w-40 h-30 "
