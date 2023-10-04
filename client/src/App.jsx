@@ -1,6 +1,5 @@
 import "./App.css";
 import Home from "./component/pages/Home";
-import Contact from "./component/pages/Contact";
 import About from "./component/pages/About";
 import { Routes, Route } from "react-router-dom";
 import PageNotFound from "./component/pages/PageNotFound";
@@ -42,7 +41,6 @@ function App() {
         <Route path="admin/create-product" element={<CreateProduct />} />
         <Route path="admin/create-order" element={<AdminOrder />} />
       </Route>
-      <Route path="/contact" element={<Contact />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/about" element={<About />} />
       <Route path="/register" element={<Register />} />

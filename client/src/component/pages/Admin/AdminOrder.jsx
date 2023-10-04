@@ -50,20 +50,20 @@ const AdminOrder = () => {
     }
   };
   return (
-    <Layout title={"All Orders Data"}>
-      <div className="row dashboard">
-        <div className="col-md-3">
-          <AdminMenu />
-        </div>
-        <div className="col-md-9">
-          <h1 className="text-center">All Orders</h1>
+    <Layout title={"Your Orders"}>
+    <div className="flex col">
+   <div className="mx-6 my-4">
+     <AdminMenu />
+   </div>
+        <div className="col-md-9 my-10">
+          <h1 className="text-center  text-3xl">All Orders</h1>
           {orders?.map((o, i) => {
             return (
-              <div className="border shadow" key={i}>
-                <table className="table">
+              <div className="border shadow my-10" key={i}>
+                <table className="table ">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
+                      <th scope="col">.</th>
                       <th scope="col">Status</th>
                       <th scope="col">Buyer</th>
                       <th scope="col"> date</th>
@@ -74,8 +74,8 @@ const AdminOrder = () => {
                   <tbody>
                     <tr>
                       <td>{i + 1}</td>
-                      <td>
-                        <Select
+                      <td >
+                        <Select 
                           bordered={false}
                           onChange={(value) => handleChange(o._id, value)}
                           defaultValue={o?.status}

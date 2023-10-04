@@ -83,9 +83,9 @@ const updateProductController = async (req, res) => {
   try {
     const { pid } = req.params;
     const { name, description, price, category, quantity, shipping } =
-      req.fields;
+    req.fields;
     const { photo } = req.files;
-
+    console.log( req.fields)
     //validation
     switch (true) {
       case !name:

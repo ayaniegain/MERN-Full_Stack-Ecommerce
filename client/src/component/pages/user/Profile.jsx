@@ -41,6 +41,7 @@ function Profile() {
         );
         console.log(data);
        if(data?.error){
+        toast.error(data.error)
         console.log(data.error);
        }else{
 

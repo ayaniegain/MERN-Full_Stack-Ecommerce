@@ -17,7 +17,6 @@ import  React, {createContext, useState,useContext,useEffect } from "react";
     loginStatus: false,
   });
 
-  console.log(auth)
 
   axios.defaults.headers.common['Authorization']=auth?.token
 
@@ -26,7 +25,6 @@ import  React, {createContext, useState,useContext,useEffect } from "react";
 useEffect(()=>{
   let data= localStorage.getItem("auth")
 
-  console.log(data);
 
   if(data){
    const parseData=JSON.parse(data)

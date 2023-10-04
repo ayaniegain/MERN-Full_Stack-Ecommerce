@@ -5,12 +5,13 @@ import { Link, NavLink } from "react-router-dom";
 
 function Search() {
   const [values, setValues] = useSearch();
-  console.log(values);
+
+  console.log(values.keyword)
   return (
     <Layout title={"search"}>
       <div className="container mx-auto flex justify-center mt-9 ">
         {/* Product Card Section */}
-        {values?.results.length < 1 ? (
+        {(values?.results.length < 1) || (values?.keyword=='') ? (
           <section className="bg-gray-100 text-center p-8">
             <div className="bg-white p-40 rounded shadow-md">
               <h2 className="text-4xl font-bold mb-4">No Search Results found</h2>
@@ -39,7 +40,7 @@ function Search() {
 
             <div className="p-6  w-full">
               <h1 className="text-3xl font-bold text-center">
-                Search results ( {values.results.length} )
+                Search for <span className="text-green-700">'{values.keyword}' </span> results (<span className="text-red-700">{values.results.length}</span>)
               </h1>
               <div className="flex  gap-4 mx-2 my-4 flex-wrap w-full  ">
                 {values?.results.map((item) => (

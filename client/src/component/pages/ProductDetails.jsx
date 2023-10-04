@@ -3,12 +3,16 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useParams, Link } from "react-router-dom";
 import Layout from "../layout/Layout";
 import toast from "react-hot-toast";
+import { useCart } from "../context/cart";
 
 function ProductDetails() {
   let { slug } = useParams();
   let [products, setProducts] = useState([]);
   let [relatedProducts, setRelatedProducts] = useState([]);
   const {_id, name,description,price ,category}=products
+  let [cart,setCart]=useCart() //usecontext
+
+  console.log(products);
 
   
   const getAllProducts = async () => {
@@ -19,7 +23,6 @@ function ProductDetails() {
           import.meta.env.VITE_REACT_APP_API
         }/api/v1/product/single-product/${slug}`
         );
-        console.log(data);
       setProducts(data?.product);
   getrelatedProducts(data?.product?._id,  data?.product?.category?._id);
 
@@ -38,7 +41,6 @@ function ProductDetails() {
         }/api/v1/product/related-product/${pid}/${cid}`
       );
 
-      console.log(data);
       setRelatedProducts(data?.products);
     } catch (error) {
       // setLoading(false)
@@ -46,6 +48,15 @@ function ProductDetails() {
       toast.error("something went wrong");
     }
   };
+  //cart
+  const handleCart=(e)=>{
+
+    e.preventDefault();
+
+    setCart([...cart,products])
+    localStorage.setItem('cart', JSON.stringify([...cart,products]));
+    toast.success("item added to cart")
+  }
 
   useEffect(() => {
   if(slug)  getAllProducts();
@@ -197,9 +208,10 @@ function ProductDetails() {
                 <span className="title-font font-medium text-2xl text-gray-900">
                 ₹  {price}
                 </span>
-                <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                <button onClick={(e)=>handleCart(e)} className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                   add to cart
                 </button>
+              
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg
                     fill="currentColor"
@@ -245,8 +257,8 @@ function ProductDetails() {
               <span className="text-gray-700 text-base font-semibold">
                 ₹ {item.price}
               </span>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right">
-                Buy Now
+              <button onClick={(e)=>handleCart(e,item)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right">
+                        Buy Now
               </button>
             </div>
           </div>

@@ -14,7 +14,8 @@ function CreateCatagory() {
   const [selected, setSelected] = useState(null);
   let [updatedName, setupdatedName] = useState("");
 
-  
+  console.log(name);
+
   async function getCatagoryApi() {
     try {
       let data = await axios.get(
@@ -55,6 +56,7 @@ function CreateCatagory() {
 
       if (data) {
         toast.success(`${name} is created`);
+        setName('')
         getCatagoryApi();
       } else {
         toast.error(data.message);

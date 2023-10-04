@@ -16,6 +16,26 @@ function CartPage() {
   const [instance, setInstance] = useState("");
   const [loading, setLoading] = useState(false);
 
+//handle unique cart with count
+const objectsById = {};
+
+// Iterate through the array and store objects based on their unique _id
+cart.forEach(obj => {
+  const id = obj._id;
+  if (!objectsById[id]) {
+    objectsById[id] = obj;
+    obj.count = 1; // Initialize count to 1
+  } else {
+    objectsById[id].count++;
+  }
+});
+
+// Extract the objects based on unique _id values as an array
+const uniqueCart = Object.values(objectsById);
+
+
+
+
   const handleRemove = (cartId) => {
     let filteredCart = cart.filter((e) => parseInt(e._id) !== parseInt(cartId));
     setCart(filteredCart);
@@ -31,7 +51,6 @@ function CartPage() {
   const getToken = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/braintree/token`);
-      console.log(data)
       setClientToken(data?.clientToken);
     } catch (error) {
       console.log(error);
@@ -52,7 +71,6 @@ function CartPage() {
         nonce,
         cart,
       });
-      console.log(data);
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
@@ -91,8 +109,8 @@ function CartPage() {
         {/* </div> */}
 
         <div className="flex  my-10 justify-evenly">
-          <div className="flex row justify-center w-7/12">
-            {cart.map((item) => (
+          <div className="flex max-h-max row justify-center w-7/12">
+            {uniqueCart.map((item) => (
               <div
                 className="lg:flex  lg:row mx-20 rounded-lg w-2/3 overflow-auto  md:w-2/3"
                 key={item._id}
@@ -115,8 +133,8 @@ function CartPage() {
                       <p className="mt-1 text-x font-bold text-gray-700">
                         Price: ₹{item.price}
                       </p>
-                      <p className="mt-1 text-x font-bold text-gray-700">
-                        stock: ✔
+                      <p className="mt-1 text-x font-bold text-bold text-red-600">
+                          count: {item.count}                          
                       </p>
                     </div>
                     <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
@@ -131,7 +149,7 @@ function CartPage() {
                             onClick={() => handleRemove(item._id)}
                             className="font-bold -my-3"
                           >
-                            remove
+                            Discard
                           </button>
 
                           <svg
@@ -170,7 +188,7 @@ function CartPage() {
                   <hr className="my-4" />
                   <div className="flex justify-between">
                     <p className="text-lg font-bold">Total </p>
-                    <div className>
+                    <div>
                       <p className="mb-1 mx-3 text-lg font-bold">
                         ₹{totalPrice + ShippingCost}
                       </p>
@@ -180,7 +198,7 @@ function CartPage() {
                   <div className="my-6">
                     {!auth?.token ? (
                       <button
-                        // onClick={() => navigate("/login", { state: "/cart" })}
+                        onClick={() => navigate("/login", { state: "/cart" })}
                         className=" bg-blue-500 py-2.5 px-2 font-medium text-blue-50 hover:bg-blue-600"
                       >
                         login to Check out
@@ -191,12 +209,12 @@ function CartPage() {
                         ""
                       ) : (
                         <div className="w-80 ">
-                          ✔
+                        
                           <DropIn
                             options={{
                               authorization: clientToken,
                               paypal: {
-                                flow: "vault",
+                                flow: "",
                               },
                             }}
                             onInstance={(instance) => setInstance(instance)}

@@ -15,7 +15,6 @@ function Products() {
       let { data } = await axios.get(
         `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/getall-product`
       );
-      console.log(data)
       setProducts(data.products);
     } catch (error) {
       console.log(error);

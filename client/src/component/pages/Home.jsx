@@ -18,11 +18,11 @@ function Home() {
   // let [total, setTotal] = useState(0);
   let [page, setPage] = useState(6);
   let [loading, setLoading] = useState(false);
-  let initialPosts  = products.slice(0, page)
+  // let initialPosts  = products.slice(0, page)
   let [cart,setCart]=useCart() //usecontext
   const [sort, setSort] = useState('')  
-
-
+products=products.slice(0, page)
+// console.log(initialPosts);
   //get catagory
   async function getAllCatagories() {
     try {
@@ -54,26 +54,7 @@ function Home() {
     }
   };
 
-  //handle filter dropdown
-  // const handleFilter = (cid) => {
-  //   setFilterCatagory(cid?.target?.value);
-  // };
-
-  // function getFilteredList() {
-
-  //   if (!filterCatagory) {
-  //     return products;
-  //   }
-  //   if (filterCatagory == "") {
-  //     return products;
-  //   }
-  //   return products.filter((p) => filterCatagory === p.category._id);
-  // }
-
-  // // Avoid duplicate function calls with useMemo
-  // products = useMemo(getFilteredList, [filterCatagory, products]);
-
-  //handle filter checkbox
+ 
   const handleFiltercheck = (checkedItem, id) => {
     let all = [...checked];
     if (checkedItem) {
@@ -84,39 +65,7 @@ function Home() {
     setChecked(all);
   };
 
-  // //getTotal count
-  // const getTotal = async () => {
-  //   try {
-  //     const { data } = await axios.get(
-  //       `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/product-count`
-  //     );
-  //     setTotal(data?.total);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // //load more
-
-  // useEffect(()=>{
-  // if(page==1) return ;
-  //  loadmore()
-  // },[page])
-
-  // const loadmore = async () => {
-  //   try {
-  //     setLoading(true)
-  //     const { data } = await axios.get(
-  //       `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/product-list/${page}`
-  //       );
-  //       setLoading(false)
-  //       setTotal([...products,...data.products]);
-  //       setLoading(false)
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
+ 
 let handleLoadingChange=()=>{
   setPage(page + 5)
     if (page >= products.length) {
@@ -133,11 +82,14 @@ let handleLoadingChange=()=>{
         `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/product-filters`,
         { checked, radio }
       );
+// console.log(data);
+
       setProducts(data?.products);
     } catch (error) {
       console.log(error);
     }
   };
+
 // get shorted
 const fetchsortedProducts = async () => {
   try {
@@ -150,6 +102,7 @@ const fetchsortedProducts = async () => {
 
   useEffect(() => {
    if(sort) fetchsortedProducts();
+   //sorted product
   }, [sort]);
 
   useEffect(() => {
@@ -168,6 +121,7 @@ const fetchsortedProducts = async () => {
   const handlereset = () => {
     window.location.reload();
   };
+  
 //cart
   const handleCart=(e,item)=>{
     e.preventDefault();
@@ -248,8 +202,8 @@ const fetchsortedProducts = async () => {
           <div className="p-6  w-full">
             <h1 className="text-3xl font-bold text-center">All Products</h1>
             <div className="flex  justify-between gap-4 mx-2 my-4 flex-wrap w-full  ">
-            {initialPosts.length>0 ?<>
-              {initialPosts?.map((item) => (
+            {products.length>0 ?<>
+              {products?.map((item) => (
                 <Link
                   key={item._id}
                   to={`/product/${item.slug}`}
@@ -292,7 +246,7 @@ const fetchsortedProducts = async () => {
           </button>
         ) : (
 
-          initialPosts.length>0 &&
+          products.length>0 &&
 
             <button onClick={handleLoadingChange} type="button" className="btn btn-danger  no-border">
             Load More +

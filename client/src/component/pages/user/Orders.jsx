@@ -17,18 +17,16 @@ function Orders() {
       console.log(error);
     }
   };
-console.log(orders);
   useEffect(() => {
     if (auth?.token) getOrders();
   }, [auth?.token]);
   return (
     <Layout title={"Your Orders"}>
-      <div className="container-flui p-3 m-3 dashboard">
-        <div className="row">
-          <div className="col-md-3">
-            <UserMenu />
-          </div>
-          <div className="col-md-9">
+       <div className="flex col">
+      <div className="mx-6 my-4">
+        <UserMenu />
+      </div>
+          <section className="col-md-9 my-8">
             <h1 className="text-center text-3xl">All Orders</h1>
             {orders?.map((o, i) => {
               return (
@@ -36,7 +34,7 @@ console.log(orders);
                   <table className="table">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
+                        <th scope="col"></th>
                         <th scope="col">Status</th>
                         <th scope="col">Buyer</th>
                         <th scope="col"> date</th>
@@ -78,9 +76,8 @@ console.log(orders);
                 </div>
               );
             })}
-          </div>
+          </section>
         </div>
-      </div>
     </Layout>
   )
 }

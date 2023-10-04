@@ -18,6 +18,8 @@ function UpdateProduct() {
   // let [shipping, setShipping] = useState(true);
   let [id, setId] = useState('');
 
+  console.log(category);
+
 //get single product
 
 async function getsingleProduct(){
@@ -25,11 +27,13 @@ async function getsingleProduct(){
         let {data} = await axios.get(
             `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/single-product/${param.slug}`
             );
+
             setName(data?.product?.name)
             setDescription(data?.product?.description)
             setPrice(data?.product?.price)
             setQuantity(data?.product?.quantity)
-            setCategory(data?.product?._id)
+            console.log(data?.product?.category._id)
+            setCategory(data?.product?.category._id)
             setId(data?.product?._id)
 
             // setShipping(data.product.shipping);
@@ -44,10 +48,10 @@ async function getsingleProduct(){
 
   async function getCatagoryApi() {
     try {
-      let data = await axios.get(
+      let {data} = await axios.get(
         `${import.meta.env.VITE_REACT_APP_API}/api/v1/category/getall-category`
       );
-      setcategories(data?.data?.category);
+      setcategories(data?.category);
     } catch (error) {
       toast.error("something went wrong in update Categories");
       console.log(error);
@@ -62,7 +66,7 @@ async function getsingleProduct(){
         `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/delete-product/${id}`
         );
         if (data?.success) {
-          toast.success("Product DEleted Succfully");
+          toast.success("Product Deleted Succfully");
           navigate("/dashboard/admin/products");
         }  
       } catch (error) {
@@ -73,11 +77,13 @@ async function getsingleProduct(){
 
 
 }
+useEffect(() => { 
+  getCatagoryApi();
+}, []);
 
-  useEffect(() => { 
-    getCatagoryApi();
-    getsingleProduct()
-  }, []);
+useEffect(() => { 
+  getsingleProduct()
+}, []);
 
   const handleUpdate =async (e) => {
     e.preventDefault()
@@ -93,6 +99,7 @@ async function getsingleProduct(){
     photo &&  productData.append("photo", photo);
       productData.append("category", category);
       // productData.append("shipping", shipping);
+
 
       const  {data}  =await axios.put(
         `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/update-product/${id}`,

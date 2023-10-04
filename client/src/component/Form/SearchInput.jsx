@@ -2,29 +2,35 @@ import React from "react";
 import { useSearch } from "../context/search";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
 function SearchInput() {
     const [values,setValues]=useSearch()
+    
 
     const natigate=useNavigate()
     
     const handleSubmit=async(e)=>{
         e.preventDefault()
         try {
-            
-            console.log(values.keyword)
+          if (!values.keyword=='') {
+          
             const {data}=await axios.get(`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/search/${values.keyword}`)
-            setValues({...values,results:data})
+              setValues({...values,results:data})
+              
+              natigate('/search')
+            }
+            console.log(values)
             
-            natigate('/search')
-        }
-        
-        catch(error){
+          }
+          
+          catch(error){
             console.log(error)
-        }
-
-        
-
+          }
+          
 }
+
+
+
   return (
     <form onSubmit={handleSubmit} className="pt-2  relative mx-auto text-gray-800">
       <input
