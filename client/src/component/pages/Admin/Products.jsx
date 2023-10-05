@@ -33,12 +33,12 @@ function Products() {
         <div className="mx-6 my-4">
           <AdminMenu />
         </div>
-        <div className="p-6 my-8">
+        <div className="p-6 my-8 ">
           <h1 className="text-3xl">Get All Products</h1>
-          <div className="flex gap-3  ">
+          <div className="flex gap-3 flex-wrap">
           {products.map((item) => (
-            <Link key={item._id} to={`/dashboard/admin/products/${item.slug}`} >
-              <div className="max-w-sm bg-white  h-40 w-60 border my-4 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <Link key={item._id} to={`/dashboard/admin/products/${item.slug}`}  >
+              <div className="max-w-sm bg-white h-90  h-max w-60 border my-4 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <img
                   className="rounded-t-lg"
                   src={`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/photo-product/${item._id}`}
