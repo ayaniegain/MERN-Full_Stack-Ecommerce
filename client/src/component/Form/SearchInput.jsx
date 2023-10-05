@@ -12,14 +12,13 @@ function SearchInput() {
     const handleSubmit=async(e)=>{
         e.preventDefault()
         try {
-          if (!values.keyword=='') {
+          if (values.keyword) {
           
             const {data}=await axios.get(`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/search/${values.keyword}`)
               setValues({...values,results:data})
               
               natigate('/search')
             }
-            console.log(values)
             
           }
           
