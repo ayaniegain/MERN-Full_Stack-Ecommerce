@@ -21,7 +21,7 @@ function Home() {
   // let initialPosts  = products.slice(0, page)
   let [cart, setCart] = useCart(); //usecontext
   const [sort, setSort] = useState("");
-  products = products.slice(0, page);
+  // products = products.slice(0, page);
   const [controlFilter, setControlFilter] = useState(false);
   // console.log(initialPosts);
   //get catagory
@@ -45,7 +45,10 @@ function Home() {
           `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/getall-product`
           );
           if(!controlFilter){
-            setProducts(data?.products);
+            setTimeout(() => {
+              
+              setProducts(data?.products);
+            },800);
           }
           setControlFilter(!controlFilter)
     } catch (error) {
@@ -55,7 +58,7 @@ function Home() {
     }
   };
 
-  const handleFiltercheck = (checkedItem, id) => {
+  const handleFiltercheck =(checkedItem, id) => {
     let all = [...checked];
     if (checkedItem) {
       all.push(id);
@@ -85,7 +88,7 @@ function Home() {
         if(controlFilter){
           setProducts(data?.products);
         }
-        setControlFilter(!controlFilter)
+        // setControlFilter(!controlFilter)
     } catch (error) {
       console.log(error);
     }
@@ -138,6 +141,7 @@ function Home() {
 
   const [toggle, setToggle] = useState(true);
 
+  console.log(products);
   return (
     <Layout title={"Home"}>
       <div className="container mx-auto mt-9 flex">
