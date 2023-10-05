@@ -18,7 +18,6 @@ function UpdateProduct() {
   // let [shipping, setShipping] = useState(true);
   let [id, setId] = useState('');
 
-  console.log(category);
 
 //get single product
 
@@ -32,7 +31,6 @@ async function getsingleProduct(){
             setDescription(data?.product?.description)
             setPrice(data?.product?.price)
             setQuantity(data?.product?.quantity)
-            console.log(data?.product?.category._id)
             setCategory(data?.product?.category._id)
             setId(data?.product?._id)
 

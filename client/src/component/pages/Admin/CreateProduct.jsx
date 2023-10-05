@@ -56,7 +56,6 @@ function CreateProduct() {
         `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/create-product`,
         productData
       );
-      console.log(data)
       if (data?.success) {
         toast.success(data?.message); 
         navigate("/dashboard/admin/products");
@@ -70,7 +69,6 @@ function CreateProduct() {
       toast.error("something went wrong");
     }
   };
-  console.log(categories)
 
   return (
     <Layout>
