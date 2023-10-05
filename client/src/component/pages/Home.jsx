@@ -21,7 +21,7 @@ function Home() {
   // let initialPosts  = products.slice(0, page)
   let [cart, setCart] = useCart(); //usecontext
   const [sort, setSort] = useState("");
-  // products = products.slice(0, page);
+  products = products.slice(0, page);
   const [controlFilter, setControlFilter] = useState(false);
   // console.log(initialPosts);
   //get catagory
