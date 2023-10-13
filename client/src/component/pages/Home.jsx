@@ -23,6 +23,7 @@ function Home() {
   const [sort, setSort] = useState("");
   products = products.slice(0, page);
   const [controlFilter, setControlFilter] = useState(false);
+  const [toggle, setToggle] = useState(true);
   // console.log(initialPosts);
   //get catagory
   async function getAllCatagories() {
@@ -139,9 +140,7 @@ function Home() {
     toast.success("item added to cart");
   };
 
-  const [toggle, setToggle] = useState(true);
 
-  console.log(products);
   return (
     <Layout title={"Home"}>
       <div className="container mx-auto mt-9 flex">
@@ -175,7 +174,7 @@ function Home() {
                 <label className="block mb-2 text-sm font-medium">
                   Categories
                 </label>
-                <div className="flex justify-start  flex-wrap space-x-2 ">
+                <div className="flex justify-start row flex-wrap space-x-2 ">
                   {categories?.map((c) => (
                     <label key={c._id} className="inline-flex  items-center">
                       <input
@@ -194,7 +193,7 @@ function Home() {
                   <label className="block mb-2 text-sm font-medium">
                     Filter By Price
                   </label>
-                  <div className="flex justify-start  flex-wrap space-x-2 ">
+                  <div className="flex justify-start  row flex-wrap space-x-2 ">
                     {Price?.map((p) => (
                       <label key={p._id} className="inline-flex  items-center">
                         <input
