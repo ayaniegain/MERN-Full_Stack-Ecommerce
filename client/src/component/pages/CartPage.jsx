@@ -37,8 +37,16 @@ const uniqueCart = Object.values(objectsById);
 
 
   const handleRemove = (cartId) => {
-    let filteredCart = cart.filter((e) => parseInt(e._id) !== parseInt(cartId));
+    // let filteredCart = cart.filter((e) => parseInt(e._id) !== parseInt(cartId));
+    // let filteredCart = cart.filter((e) => console.log(e._id));
+    // setCart(filteredCart);
+    const idsToRemove = new Set([cartId]);
+
+    // Use filter to create a new array without the objects with the specified IDs
+    const filteredCart = cart.filter(item => !idsToRemove.has(item._id));
+    
     setCart(filteredCart);
+
     localStorage.setItem("cart", JSON.stringify(filteredCart));
   };
 //final price 

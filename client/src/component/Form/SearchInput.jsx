@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { useSearch } from "../context/search";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -6,10 +6,10 @@ import { useEffect } from "react";
 function SearchInput() {
   let [values, setValues] = useSearch();
   let [products, setProducts] = useState([]);
-
+  const inputRef =useRef('')
+  let [showSuggest,setShowsuggest]=useState(false)
   
 
-  console.log(values);
 
   const natigate = useNavigate();
 
@@ -57,10 +57,10 @@ function SearchInput() {
   
   const handleClick=(e)=>{
 
-    console.log(e);
-    setValues(e)
+    // console.log(e);
+    // setValues(e)
     // natigate("/search");
-
+    inputRef.current.value=e.keyword
   }
     return (
     <>
@@ -72,9 +72,12 @@ function SearchInput() {
           className="border-2 border-gray-300 bg-white h-10  pr-16 rounded-lg text-sm focus:outline-none"
           type="search"
           name="search"
+          ref={inputRef}
           placeholder="Search"
           value={values.keyword}
           onChange={(e) => setValues({ ...values, keyword: e.target.value })}
+          onFocus={()=>setShowsuggest(true)}
+          onBlur={()=>setShowsuggest(false)}
         />
         <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
           <svg
@@ -95,7 +98,7 @@ function SearchInput() {
           </svg>
         </button>
         <div>
-        {values.keyword   ?
+        {showSuggest   ?
         
         
           <div className="flex flex-col absolute bg-slate-100 w-full ">
@@ -103,6 +106,7 @@ function SearchInput() {
               <span  key={e.name}
                 className="hover:bg-white text-sm mx-2 shadow-sm py-1"
                 onClick={() => handleClick({ keyword: e.name })}
+
               >
                 {e.name}
               </span>
