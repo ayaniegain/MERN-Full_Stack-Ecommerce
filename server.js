@@ -7,6 +7,7 @@ const cors =require("cors")
 const authRoutes  = require("./routes/authRoute");
 const categoryRoutes  = require("./routes/categoryRoute");
 const productRoutes  = require("./routes/productRouter");
+const path =require('path')
 
 //config env
 dotenv.config();
@@ -26,8 +27,14 @@ app.use(cors())
 app.use("/api/v1/auth",authRoutes );
 app.use("/api/v1/category",categoryRoutes );
 app.use("/api/v1/product",productRoutes );
+app.use(express.static(path.join(__dirname, './client/dist')) );
 //port
 const PORT = process.env.PORT || 8080;
+
+//rest api
+app.use('*',(req,res)=>{
+  res.sendFile (path.join(__dirname,'./client/dist/index.html'))
+})
 
 //run listen
 app.listen(PORT, () => {
