@@ -16,7 +16,7 @@ function SearchInput() {
   const getAllProducts = async () => {
     try {
       let { data } = await axios.get(
-        `/api/v1/product/getall-product`
+        `http://localhost:8080/api/v1/product/getall-product`
       );
 
       let fldata = data.products.filter(
