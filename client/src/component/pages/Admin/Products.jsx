@@ -13,7 +13,7 @@ function Products() {
   const getAllProducts = async () => {
     try {
       let { data } = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/getall-product`
+        `http://localhost:8080/api/v1/product/getall-product`
       );
       setProducts(data.products);
     } catch (error) {
@@ -41,7 +41,7 @@ function Products() {
               <div className="max-w-sm bg-white h-90  h-max w-60 border my-4 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <img
                   className="rounded-t-lg"
-                  src={`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/photo-product/${item._id}`}
+                  src={`http://localhost:8080/api/v1/product/photo-product/${item._id}`}
                   alt="product image"
                 />
                 <div className="p-5">

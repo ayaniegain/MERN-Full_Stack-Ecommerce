@@ -19,7 +19,7 @@ function CreateProduct() {
   async function getCatagoryApi() {
     try {
       let data = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/category/getall-category`
+        `http://localhost:8080/api/v1/category/getall-category`
       );
       setcategories(data?.data?.category);
     } catch (error) {
@@ -53,7 +53,7 @@ function CreateProduct() {
       productData.append("category", category);
 
       const  {data}  =await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/create-product`,
+        `http://localhost:8080/api/v1/product/create-product`,
         productData
       );
       if (data?.success) {

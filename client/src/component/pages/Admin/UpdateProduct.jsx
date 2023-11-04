@@ -24,7 +24,7 @@ function UpdateProduct() {
 async function getsingleProduct(){
     try {
         let {data} = await axios.get(
-            `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/single-product/${param.slug}`
+            `http://localhost:8080/api/v1/product/single-product/${param.slug}`
             );
 
             setName(data?.product?.name)
@@ -47,7 +47,7 @@ async function getsingleProduct(){
   async function getCatagoryApi() {
     try {
       let {data} = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/category/getall-category`
+        `http://localhost:8080/api/v1/category/getall-category`
       );
       setcategories(data?.category);
     } catch (error) {
@@ -61,7 +61,7 @@ async function getsingleProduct(){
   confirm("are you sure !");
   try {
     let {data} = await axios.delete(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/delete-product/${id}`
+        `http://localhost:8080/api/v1/product/delete-product/${id}`
         );
         if (data?.success) {
           toast.success("Product Deleted Succfully");
@@ -100,7 +100,7 @@ useEffect(() => {
 
 
       const  {data}  =await axios.put(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/update-product/${id}`,
+        `http://localhost:8080/api/v1/product/update-product/${id}`,
         productData
       );
       console.log(data)
@@ -194,7 +194,7 @@ useEffect(() => {
                 (
                   <div className="text-center">
                   <img
-                  // src={`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/photo-product/${id}`}
+                  // src={`http://localhost:8080/api/v1/product/photo-product/${id}`}
                   src={`http://localhost:8080/api/v1/product/photo-product/${id}`}
 
                     alt="product_photo"

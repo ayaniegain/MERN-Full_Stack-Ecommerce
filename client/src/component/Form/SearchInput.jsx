@@ -16,7 +16,7 @@ function SearchInput() {
   const getAllProducts = async () => {
     try {
       let { data } = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/getall-product`
+        `http://localhost:8080/api/v1/product/getall-product`
       );
 
       let fldata = data.products.filter(
@@ -40,7 +40,7 @@ function SearchInput() {
     try {
       if (values.keyword) {
         const { data } = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_API}/api/v1/product/search/${
+          `http://localhost:8080/api/v1/product/search/${
             values.keyword
           }`
         );

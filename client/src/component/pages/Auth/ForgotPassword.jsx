@@ -18,7 +18,7 @@ function ForgotPassword() {
 
     try {
       let res = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/auth/forgot-password`,
+        `http://localhost:8080/api/v1/auth/forgot-password`,
         {
           email: data.email,
           newPassword: data.newPassword,

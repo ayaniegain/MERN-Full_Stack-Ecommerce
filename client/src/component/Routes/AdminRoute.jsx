@@ -11,7 +11,7 @@ export const AdminRoute = () => {
   useEffect(() => {
     let authCheck = async () => {
       let res = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/auth/admin-auth`
+        `http://localhost:8080/api/v1/auth/admin-auth`
       );
       // console.log(res)
       if (res.data.ok) {

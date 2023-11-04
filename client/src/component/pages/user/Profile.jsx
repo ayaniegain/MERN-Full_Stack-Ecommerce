@@ -30,7 +30,7 @@ function Profile() {
     
     try {
       let {data} = await axios.put(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/auth/profile`,
+        `http://localhost:8080/api/v1/auth/profile`,
         {
           name: formdata.name,
           email: formdata.email,

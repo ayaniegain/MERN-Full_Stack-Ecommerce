@@ -18,7 +18,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      let res=await  axios.post(`${import.meta.env.VITE_REACT_APP_API}/api/v1/auth/login`,{
+      let res=await  axios.post(`http://localhost:8080/api/v1/auth/login`,{
         email:data.email,
         password:data.password
       })

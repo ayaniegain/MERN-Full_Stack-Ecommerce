@@ -71,7 +71,7 @@ function ProductDetails() {
             {_id?  <img
               alt="ecommerce"
               className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-              src={`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/photo-product/${_id}`}
+              src={`http://localhost:8080/api/v1/product/photo-product/${_id}`}
 
             />  :'..loading...'}
            

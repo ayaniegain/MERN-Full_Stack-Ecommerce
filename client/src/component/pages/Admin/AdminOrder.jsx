@@ -22,7 +22,7 @@ const AdminOrder = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/auth/all-orders`
+        `http://localhost:8080/api/v1/auth/all-orders`
       );
       setOrders(data);
     } catch (error) {

@@ -19,7 +19,7 @@ function CreateCatagory() {
   async function getCatagoryApi() {
     try {
       let data = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/category/getall-category`
+        `http://localhost:8080/api/v1/category/getall-category`
       );
       setCategory(data?.data?.category);
     } catch (error) {
@@ -48,7 +48,7 @@ function CreateCatagory() {
 
     try {
       let data = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API}/api/v1/category/create-category`,
+        `http://localhost:8080/api/v1/category/create-category`,
         {
           name,
         }
