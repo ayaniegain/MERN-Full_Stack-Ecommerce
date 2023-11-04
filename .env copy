@@ -1,6 +1,6 @@
 PORT=8080
 DEV_MODE= DEV
-MONGO_CONNECT=mongodb+srv://ayan2:ayanbiswas@cluster0.jjzovvv.mongodb.net/ecommerce
+MONGO_CONNECT=mongodb+srv://user1:ayanbiswasuser@cluster0.jjzovvv.mongodb.net/ecommerce
 JWT_SECRECT_KEY=123567ABC@%xyz
 
 BRAINTREE_MERCHANT_ID= rq8z9xrfvvyvhjfm
