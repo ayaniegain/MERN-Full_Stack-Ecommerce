@@ -18,7 +18,7 @@ function ForgotPassword() {
 
     try {
       let res = await axios.post(
-        `http://localhost:8080/api/v1/auth/forgot-password`,
+        `/api/v1/auth/forgot-password`,
         {
           email: data.email,
           newPassword: data.newPassword,

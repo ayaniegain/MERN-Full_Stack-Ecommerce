@@ -29,7 +29,7 @@ function Home() {
   async function getAllCatagories() {
     try {
       let data = await axios.get(
-        `http://localhost:8080/api/v1/category/getall-category`
+        `/api/v1/category/getall-category`
       );
       setCategories(data?.data?.category);
     } catch (error) {
@@ -43,7 +43,7 @@ function Home() {
     try {
       // setLoading(true)
         let { data } = await axios.get(
-          `http://localhost:8080/api/v1/product/getall-product`
+          `/api/v1/product/getall-product`
           );
           if(!controlFilter){
             setTimeout(() => {
@@ -83,7 +83,7 @@ function Home() {
       
       
       const { data } = await axios.post(
-        `http://localhost:8080/api/v1/product/product-filters`,
+        `/api/v1/product/product-filters`,
         { checked, radio }
         );
         if(controlFilter){

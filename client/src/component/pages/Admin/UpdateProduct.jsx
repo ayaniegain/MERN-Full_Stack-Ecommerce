@@ -24,7 +24,7 @@ function UpdateProduct() {
 async function getsingleProduct(){
     try {
         let {data} = await axios.get(
-            `http://localhost:8080/api/v1/product/single-product/${param.slug}`
+            `/api/v1/product/single-product/${param.slug}`
             );
 
             setName(data?.product?.name)
@@ -47,7 +47,7 @@ async function getsingleProduct(){
   async function getCatagoryApi() {
     try {
       let {data} = await axios.get(
-        `http://localhost:8080/api/v1/category/getall-category`
+        `/api/v1/category/getall-category`
       );
       setcategories(data?.category);
     } catch (error) {
@@ -61,7 +61,7 @@ async function getsingleProduct(){
   confirm("are you sure !");
   try {
     let {data} = await axios.delete(
-        `http://localhost:8080/api/v1/product/delete-product/${id}`
+        `/api/v1/product/delete-product/${id}`
         );
         if (data?.success) {
           toast.success("Product Deleted Succfully");
@@ -100,7 +100,7 @@ useEffect(() => {
 
 
       const  {data}  =await axios.put(
-        `http://localhost:8080/api/v1/product/update-product/${id}`,
+        `/api/v1/product/update-product/${id}`,
         productData
       );
       console.log(data)
@@ -194,8 +194,8 @@ useEffect(() => {
                 (
                   <div className="text-center">
                   <img
-                  // src={`http://localhost:8080/api/v1/product/photo-product/${id}`}
-                  src={`http://localhost:8080/api/v1/product/photo-product/${id}`}
+                  // src={`/api/v1/product/photo-product/${id}`}
+                  src={`/api/v1/product/photo-product/${id}`}
 
                     alt="product_photo"
                     height={"200px"}
