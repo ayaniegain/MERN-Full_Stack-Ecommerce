@@ -3,124 +3,102 @@ import Layout from "../../layout/Layout";
 import AdminMenu from "../../layout/AdminMenu";
 import axios from "axios";
 import toast from "react-hot-toast";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateProduct() {
-    const param=useParams()
-    const navigate = useNavigate();
-    let [categories, setcategories] = useState([]);
-    let [name, setName] = useState("");
-    let [description, setDescription] = useState("");
-    let [price, setPrice] = useState("");
+  const param = useParams();
+  const navigate = useNavigate();
+  let [categories, setcategories] = useState([]);
+  let [name, setName] = useState("");
+  let [description, setDescription] = useState("");
+  let [price, setPrice] = useState("");
   let [category, setCategory] = useState("");
   let [quantity, setQuantity] = useState("");
   let [photo, setPhoto] = useState("");
-  // let [shipping, setShipping] = useState(true);
-  let [id, setId] = useState('');
+  let [id, setId] = useState("");
 
-
-//get single product
-
-async function getsingleProduct(){
+  // Get single product
+  async function getSingleProduct() {
     try {
-        let {data} = await axios.get(
-            `/api/v1/product/single-product/${param.slug}`
-            );
-
-            setName(data?.product?.name)
-            setDescription(data?.product?.description)
-            setPrice(data?.product?.price)
-            setQuantity(data?.product?.quantity)
-            setCategory(data?.product?.category._id)
-            setId(data?.product?._id)
-
-            // setShipping(data.product.shipping);
-
-            // console.log(data)
-      } catch (error) {
-        console.log(error);
-      }
-
-  }
-
-
-  async function getCatagoryApi() {
-    try {
-      let {data} = await axios.get(
-        `/api/v1/category/getall-category`
+      let { data } = await axios.get(
+        `/api/v1/product/single-product/${param.slug}`
       );
-      setcategories(data?.category);
+
+      setName(data?.product?.name);
+      setDescription(data?.product?.description);
+      setPrice(data?.product?.price);
+      setQuantity(data?.product?.quantity);
+      setCategory(data?.product?.category._id);
+      setId(data?.product?._id);
     } catch (error) {
-      toast.error("something went wrong in update Categories");
       console.log(error);
     }
   }
-///delete products
 
- const handleDelete=async()=>{
-  confirm("are you sure !");
-  try {
-    let {data} = await axios.delete(
-        `/api/v1/product/delete-product/${id}`
-        );
+  // Get categories
+  async function getCategories() {
+    try {
+      let { data } = await axios.get(`/api/v1/category/getall-category`);
+      setcategories(data?.category);
+    } catch (error) {
+      toast.error("Something went wrong in updating categories");
+      console.log(error);
+    }
+  }
+
+  // Handle delete product
+  const handleDelete = async () => {
+    const confirmation = window.confirm("Are you sure you want to delete this product?");
+    if (confirmation) {
+      try {
+        let { data } = await axios.delete(`/api/v1/product/delete-product/${id}`);
         if (data?.success) {
-          toast.success("Product Deleted Succfully");
+          toast.success("Product deleted successfully");
           navigate("/dashboard/admin/products");
-        }  
+        }
       } catch (error) {
         console.log(error);
         toast.error(data?.message);
-   
-  }
+      }
+    }
+  };
 
-
-}
-useEffect(() => { 
-  getCatagoryApi();
-}, []);
-
-useEffect(() => { 
-  getsingleProduct()
-}, []);
-
-  const handleUpdate =async (e) => {
-    e.preventDefault()
-   
+  // Update product
+  const handleUpdate = async (e) => {
+    e.preventDefault();
 
     try {
-
       const productData = new FormData();
       productData.append("name", name);
       productData.append("description", description);
       productData.append("price", price);
       productData.append("quantity", quantity);
-    photo &&  productData.append("photo", photo);
+      photo && productData.append("photo", photo);
       productData.append("category", category);
-      // productData.append("shipping", shipping);
 
+      const { data } = await axios.put(`/api/v1/product/update-product/${id}`, productData);
 
-      const  {data}  =await axios.put(
-        `/api/v1/product/update-product/${id}`,
-        productData
-      );
-      console.log(data)
       if (data?.success) {
-        toast.success("Product Created Successfully");
+        toast.success("Product updated successfully");
         navigate("/dashboard/admin/products");
-        
       } else {
         toast.error(data?.message);
-        
       }
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong");
+      toast.error("Something went wrong");
     }
   };
 
+  useEffect(() => {
+    getSingleProduct();
+    getCategories();
+  }, []);
+
   return (
     <Layout>
-      <div className="flex col">
+      <div className="flex md:flex-row flex-col md:justify-start md:items-start justify-center items-center">
+
         <div className="mx-6 my-4">
           <AdminMenu />
         </div>
@@ -129,15 +107,15 @@ useEffect(() => {
             <h1 className="text-3xl pb-3">Update Product</h1>
             <div>
               <label
-                htmlFor="countries"
-                className="block pb-1 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="categories"
+                className="block pb-1 mb-2 text-sm font-medium text-gray-900"
               >
                 Select a Category
               </label>
               <select
                 onChange={(e) => setCategory(e.target.value)}
-                id="countries"
-                className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="categories"
+                className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
                 <option>Choose a Category</option>
                 {categories.map((e) => (
@@ -149,8 +127,8 @@ useEffect(() => {
             </div>
             <div>
               <label
-                htmlFor="first_name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="product_name"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
                 Product Name
               </label>
@@ -158,15 +136,15 @@ useEffect(() => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
-                id="first_name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="enter Product Name"
+                id="product_name"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Enter Product Name"
                 required
               />
             </div>
             <div className="my-2">
               <label
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900"
                 htmlFor="file_input"
               >
                 Upload Image
@@ -174,12 +152,13 @@ useEffect(() => {
               <input
                 accept="image/*"
                 onChange={(e) => setPhoto(e.target.files[0])}
-                className="block  w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                 id="file_input"
                 type="file"
               />
             </div>
-              { id? <div className="mb-3 ">
+            {id ? (
+              <div className="mb-3">
                 {photo ? (
                   <div className="text-center">
                     <img
@@ -189,110 +168,82 @@ useEffect(() => {
                       className="img img-responsive h-52"
                     />
                   </div>
-                ):
-                
-                (
+                ) : (
                   <div className="text-center">
-                  <img
-                  // src={`/api/v1/product/photo-product/${id}`}
-                  src={`/api/v1/product/photo-product/${id}`}
-
-                    alt="product_photo"
-                    height={"200px"}
-                    className="img img-responsive h-52"
-                  />
-                </div>
-
+                    <img
+                      src={`/api/v1/product/photo-product/${id}`}
+                      alt="product_photo"
+                      height={"200px"}
+                      className="img img-responsive h-52"
+                    />
+                  </div>
                 )}
-              </div> :'loading......'}
-           
+              </div>
+            ) : (
+              "Loading..."
+            )}
             <div>
               <label
-                htmlFor="message"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="product_description"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Write a description
+                Write a Description
               </label>
               <textarea
-                id="message"
+                id="product_description"
                 rows={4}
-                className="block mb-2 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="description here..."
+                className="block mb-2 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Description here..."
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
               />
             </div>
             <div>
               <label
-                htmlFor="price"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="product_price"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Enter product price
+                Enter Product Price
               </label>
               <input
                 type="number"
-                id="price"
-                className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="product_price"
+                className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="$2000"
                 required
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
-
             <div>
               <label
-                htmlFor="quantity"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="product_quantity"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
                 Quantity
               </label>
               <input
                 type="number"
-                id="quantity"
-                className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="product_quantity"
+                className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="1"
                 required
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />
             </div>
-
-            <div>
-              <label
-                htmlFor="countries"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                shipping Status
-              </label>
-              <select
-                id="countries"
-                // onChange={(value) => {
-                //   setShipping(value);
-                // }}
-                // value={shipping?"yes":"no"}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option>Choose a option</option>
-                <option value="0">no</option>
-                <option value="1">yes</option>
-              </select>
-            </div>
-
             <div className="my-3">
-             
               <button
                 type="submit"
-                className="text-white bg-black hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-black hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
               >
-                  UPDATE PRODUCT
+                UPDATE PRODUCT
               </button>
               <button
-                // type="handleDelete"
                 onClick={handleDelete}
-                className="text-white bg-red-700 hover:bg-orange-400 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-red-700 hover:bg-orange-400 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
               >
-                  DELETE PRODUCT
+                DELETE PRODUCT
               </button>
             </div>
           </section>
@@ -303,3 +254,4 @@ useEffect(() => {
 }
 
 export default UpdateProduct;
+

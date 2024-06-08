@@ -19,9 +19,7 @@ function ProductDetails() {
     try {
       // setLoading(true)
       let { data } = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_APP_API
-        }/api/v1/product/single-product/${slug}`
+        `/api/v1/product/single-product/${slug}`
         );
       setProducts(data?.product);
   getrelatedProducts(data?.product?._id,  data?.product?.category?._id);
@@ -36,9 +34,7 @@ function ProductDetails() {
     try {
       // setLoading(true)
       let { data } = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_APP_API
-        }/api/v1/product/related-product/${pid}/${cid}`
+        `/api/v1/product/related-product/${pid}/${cid}`
       );
 
       setRelatedProducts(data?.products);
@@ -70,7 +66,7 @@ function ProductDetails() {
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             {_id?  <img
               alt="ecommerce"
-              className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+              className="lg:w-80 w-full object-cover object-center rounded border border-gray-200"
               src={`/api/v1/product/photo-product/${_id}`}
 
             />  :'..loading...'}
@@ -231,20 +227,19 @@ function ProductDetails() {
       </section>
 
    {
+    
     relatedProducts.length>0?   <div className="p-6  w-full">
     <h1 className="text-2xl font-bold text-center">similar Products</h1>
-    <div className="flex  justify-start gap-4 mx-2 my-4 flex-wrap w-full  ">
+    <div className="flex  justify-center gap-4 mx-2 my-4 flex-wrap w-full  ">
       {relatedProducts?.map((item) => (
         <Link
           key={item._id}
           to={`/`}
         >
-          <div className="max-w-xs w-64 h-full rounded overflow-hidden shadow-lg border">
+          <div className="max-w-xs  h-80 rounded overflow-hidden shadow-lg border">
             <img
-              className="w-full "
-              src={`${
-                import.meta.env.VITE_REACT_APP_API
-              }/api/v1/product/photo-product/${item._id}`}
+              className=" h-32 w-full "
+              src={`/api/v1/product/photo-product/${item._id}`}
               alt="Product Image"
             />
             <div className="px-6 py-4">
@@ -253,11 +248,11 @@ function ProductDetails() {
                 {item.description}
               </p>
             </div>
-            <div className="px-6 py-4">
+            <div className="px-6 py-4 flex justify-between items-center">
               <span className="text-gray-700 text-base font-semibold">
                 ₹ {item.price}
               </span>
-              <button onClick={(e)=>handleCart(e,item)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right">
+              <button onClick={(e)=>handleCart(e,item)} className="bg-blue-500 hover:bg-blue-700 text-[10px] text-white font-bold py-1.5 px-2 rounded-full float-right">
                         Buy Now
               </button>
             </div>

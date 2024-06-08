@@ -27,17 +27,17 @@ app.use(cors())
 app.use("/api/v1/auth",authRoutes );
 app.use("/api/v1/category",categoryRoutes );
 app.use("/api/v1/product",productRoutes );
-app.use(express.static(path.join(__dirname, './client/build')) );
+// app.use(express.static(path.join(__dirname, './client/build')) );
 //port
 const PORT = process.env.PORT ||8080 ;
 
 
-//rest api
-app.use('*',(req,res)=>{
-  res.sendFile (path.join(__dirname,'./client/build/index.html'),(err)=>{
-    res.status(500).send(err)
-  })
-})
+// //rest api
+// app.use('*',(req,res)=>{
+//   res.sendFile (path.join(__dirname,'./client/build/index.html'),(err)=>{
+//     res.status(500).send(err)
+//   })
+// })
 
 //run listen
 app.listen(8080, () => {

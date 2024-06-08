@@ -37,9 +37,7 @@ const AdminOrder = () => {
   const handleChange = async (orderId, value) => {
     try {
       const { data } = await axios.put(
-        `${
-          import.meta.env.VITE_REACT_APP_API
-        }/api/v1/auth/order-status/${orderId}`,
+        `/api/v1/auth/order-status/${orderId}`,
         {
           status: value,
         }
@@ -100,9 +98,7 @@ const AdminOrder = () => {
                       <div className="col-md-4">
                       <img
                     className="w-40 h-30 "
-                    src={`${
-                      import.meta.env.VITE_REACT_APP_API
-                    }/api/v1/product/photo-product/${p._id}`}
+                    src={`/api/v1/product/photo-product/${p._id}`}
                     alt="Product Image"
                   />
                       </div>

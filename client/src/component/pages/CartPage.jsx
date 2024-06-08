@@ -6,6 +6,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import AdminDashboard from "./Admin/AdminDashboard";
  
 function CartPage() {
   let navigate = useNavigate();
@@ -94,15 +95,18 @@ const uniqueCart = Object.values(objectsById);
     <Layout title={"CartPage"}>
 
 
-      <div className="h-screen   bg-gray-100 pt-20  overflow-auto">
-        <h1 className="mb-8 text-center text-2xl font-bold">{`Hello ${
+      <div className="flex flex-col h-full  bg-gray-100 pt-20  overflow-auto">
+
+        <h1 className="mb-8 text-center text-2xl font-bold">{`${
           auth?.token && auth?.user?.name
-        }`}</h1>
-        <div className="mx-auto  max-w-5xl text-2xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+          }`}</h1>
+
+  <div className="flex flex-col  justify-center items-center">
+    <div className="mx-auto  max-w-5xl md:text-2xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
           {cart.length > 0 ? (
             `You have ${cart.length} ${
               cart.length > 1 ? "items" : "item"
-            } in your cart.  ${auth?.token ? "" : `login to check out`}`
+            } in your cart.  ${auth?.token ? "" : ` login to check out`}`
           ) : (
             <div className="font-medium text-2xl">
               <h1 className="text-red-500 uppercase ">No Cart found ❌</h1>
@@ -116,24 +120,22 @@ const uniqueCart = Object.values(objectsById);
         </div>
         {/* </div> */}
 
-        <div className="flex  my-10 justify-evenly">
-          <div className="flex max-h-max row justify-center w-7/12">
+        <div className="flex flex-col md:flex-row  my-10 md:justify-evenly justify-center md:items-start items-center">
+          <div className="flex max-h-max row justify-center w-7/12  items-center">
             {uniqueCart.map((item) => (
               <div
-                className="lg:flex  lg:row mx-20 rounded-lg w-2/3 overflow-auto  md:w-2/3"
+                className="  lg:row mx-20 rounded-lg overflow-auto  md:w-2/3"
                 key={item._id}
               >
                 {/* max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl */}
-                <div className="overflow-hidden md:max-w-2xl mb-6 w-auto rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                <div className="overflow-hidden   shadow-lg md:max-w-2xl mb-6 w-auto rounded-lg bg-white p-6  sm:flex sm:justify-start">
                   {/* <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="product-image" className="w-full rounded-lg sm:w-40" /> */}
                   <img
                     className="w-40 h-30 "
-                    src={`${
-                      import.meta.env.VITE_REACT_APP_API
-                    }/api/v1/product/photo-product/${item._id}`}
+                    src={`/api/v1/product/photo-product/${item._id}`}
                     alt="Product Image"
                   />
-                  <div className="sm:ml-4  mx-40 sm:flex sm:w-full sm:justify-between">
+                  <div className="md:ml-4  md:mx-40 md:flex md:w-full md:justify-between">
                     <div className="mt-5 sm:mt-0">
                       <h2 className="text-lg  font-bold text-gray-900">
                         {item.name}
@@ -157,7 +159,7 @@ const uniqueCart = Object.values(objectsById);
                             onClick={() => handleRemove(item._id)}
                             className="font-bold -my-3"
                           >
-                            Discard
+                            
                           </button>
 
                           <svg
@@ -182,7 +184,7 @@ const uniqueCart = Object.values(objectsById);
               </div>
             ))}
           </div>
-          <div className="flex row   h-96 w-5/12">
+          <div className="flex row   md:h-96 md:w-5/12">
               {cart.length > 0 && (
                 <div className="mt-6  w-auto   rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
                   <div className="mb-2 flex  justify-between">
@@ -229,7 +231,7 @@ const uniqueCart = Object.values(objectsById);
                           />
       
                           <button
-                            className="btn btn-primary"
+                            className="btn btn-primary "
                             onClick={handlePayment}
                             disabled={loading || !instance}
                           >
@@ -244,7 +246,12 @@ const uniqueCart = Object.values(objectsById);
               )}
             </div>
           </div>
-        </div>
+        
+          </div>
+  
+  
+ 
+  </div>
     </Layout>
   );
 }

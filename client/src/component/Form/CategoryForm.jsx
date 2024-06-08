@@ -11,11 +11,11 @@ function CategoryForm({ value, setValue, handleSubmit }) {
             placeholder="Enter Category"
             type="text"
             id="first_name"
-            className= "bg-gray-50 border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
           />
           <button
-            className="bg-sky-900 text-white  active:bg-sky-900 font-bold h-9 w-20 m-2 uppercase text-xs  py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            className="bg-sky-900 text-white active:bg-sky-900 font-bold h-9 w-20 m-2 uppercase text-xs py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="submit"
           >
             submit

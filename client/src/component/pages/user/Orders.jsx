@@ -22,7 +22,8 @@ function Orders() {
   }, [auth?.token]);
   return (
     <Layout title={"Your Orders"}>
-       <div className="flex col">
+      <div className="flex md:flex-row flex-col md:justify-start md:items-start justify-center items-center">
+
       <div className="mx-6 my-4">
         <UserMenu />
       </div>
@@ -59,9 +60,7 @@ function Orders() {
                         <div className="col-md-4">
                         <img
                     className="w-40 h-30 "
-                    src={`${
-                      import.meta.env.VITE_REACT_APP_API
-                    }/api/v1/product/photo-product/${p._id}`}
+                    src={`/api/v1/product/photo-product/${p._id}`}
                     alt="Product Image"
                   />
                         </div>

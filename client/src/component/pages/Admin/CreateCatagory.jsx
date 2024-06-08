@@ -7,7 +7,7 @@ import CategoryForm from "../../Form/CategoryForm";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function CreateCatagory() {
+function CreateCategory() {
   let [category, setCategory] = useState([]);
   let [name, setName] = useState("");
   const [show, setShow] = useState(false);
@@ -16,28 +16,26 @@ function CreateCatagory() {
 
   console.log(name);
 
-  async function getCatagoryApi() {
+  async function getCategories() {
     try {
       let data = await axios.get(
         `/api/v1/category/getall-category`
       );
       setCategory(data?.data?.category);
     } catch (error) {
-      toast.error("something went wrong in create Categories");
+      toast.error("Something went wrong in fetching categories");
       console.log(error);
     }
   }
+
   async function deleteHandler(id = null) {
     try {
       if (id) {
         await axios.delete(
-          `${
-            import.meta.env.VITE_REACT_APP_API
-          }/api/v1/category/delete-category/${id}`
+          `/api/v1/category/delete-category/${id}`
         );
       }
-      getCatagoryApi();
-      // setCategory(data?.data?.category)
+      getCategories();
     } catch (error) {
       console.log(error);
     }
@@ -57,12 +55,12 @@ function CreateCatagory() {
       if (data) {
         toast.success(`${name} is created`);
         setName('')
-        getCatagoryApi();
+        getCategories();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("something went wrong in input form ");
+      toast.error("Something went wrong in input form");
 
       console.log(error);
     }
@@ -72,47 +70,46 @@ function CreateCatagory() {
     e.preventDefault();
     try {
       const data = await axios.put(
-        `${
-          import.meta.env.VITE_REACT_APP_API
-        }/api/v1/category/update-category/${selected._id}`,
+        `/api/v1/category/update-category/${selected._id}`,
         { name: updatedName }
       );
 
       toast.success(`${updatedName} is updated`);
       setSelected(null);
       setShow(false);
-      getCatagoryApi();
+      getCategories();
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    getCatagoryApi();
+    getCategories();
   }, []);
 
   return (
     <Layout>
-      <div className="flex col">
+      <div className="flex md:flex-row flex-col md:justify-start md:items-start justify-center items-center">
+
         <div className="mx-6 my-4">
           <AdminMenu />
         </div>
         <div className="p-6 my-8">
-        <h1 className="text-3xl pb-4">Create Category</h1>
+          <h1 className="text-3xl pb-4">Create Category</h1>
           <CategoryForm
             handleSubmit={handleSubmit}
             value={name}
             setValue={setName}
           />
           <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left text-gray-500">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     Categories
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    action
+                    Action
                   </th>
                 </tr>
               </thead>
@@ -120,15 +117,15 @@ function CreateCatagory() {
                 {category?.map((e) => (
                   <tr
                     key={e._id}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 "
+                    className="bg-white border-b"
                   >
                     <th
                       scope="row"
-                      className="px-6 py-4  font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      className="px-6 py-4  font-medium text-gray-900 whitespace-nowrap"
                     >
                       {e.name}
                     </th>
-                    <td className="px-6 py-4  ">
+                    <td className="px-6 py-4">
                       <button
                         className="text-white bg-teal-400 hover:bg-teal-500 focus:outline-none focus:ring-4 focus:ring-tbg-teal-300 font-medium rounded-full text-sm px-4 py-2.5 text-center mr-2 mb-2"
                         onClick={() => {
@@ -145,7 +142,7 @@ function CreateCatagory() {
                         className="text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-full text-sm px-4 py-2.5 text-center mr-2 mb-2"
                         onClick={() => deleteHandler(e._id)}
                       >
-                        delete
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -165,11 +162,10 @@ function CreateCatagory() {
               />
               <Button
                 variant="secondary"
-                className="bg-red-900 text-white  active:bg-sky-900 font-bold h-9 w-20 m-2 uppercase text-xs 
-                 py-2 rounded-full"
+                className="bg-red-900 text-white active:bg-sky-900 font-bold h-9 w-20 m-2 uppercase text-xs py-2 rounded-full"
                 onClick={() => setShow(false)}
               >
-                close
+                Close
               </Button>
             </Modal.Body>
           </Modal>
@@ -179,4 +175,4 @@ function CreateCatagory() {
   );
 }
 
-export default CreateCatagory;
+export default CreateCategory;
