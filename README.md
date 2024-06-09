@@ -45,6 +45,9 @@ To access the admin panel, use the following credentials:
 ![Screenshot (18)](https://github.com/ayaniegain/MERN-Full_Stack-Ecommerce/assets/59463533/09dad6cd-5a9f-42ea-8eab-706a438ebfb7)
 
 
+![Screenshot (17)](https://github.com/ayaniegain/MERN-Full_Stack-Ecommerce/assets/59463533/9a35911d-8e0a-445a-add2-137c751f01cd)
+
+
 Feel free to replace the "sample-image-1.png," "sample-image-2.png," and "sample-image-3.png" placeholders with actual screenshots or images from your project.
 
 git clone https://github.com/ayaniegain/MERN-Full_Stack-Ecommerce.git
