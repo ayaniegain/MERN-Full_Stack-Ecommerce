@@ -149,7 +149,6 @@ function Home() {
     }
   }
 
-
   const getAllProducts = async () => {
     try {
       let { data } = await axios.get(`/api/v1/product/getall-product`);
