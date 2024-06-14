@@ -10,7 +10,125 @@ import Simmer from "../../assets/Simmer";
 import { AiOutlineBars } from "react-icons/Ai";
 
 function Home() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([  {
+
+    _id: '651d7b17beef0085f914cc8c',
+
+    name: 'Polo Tshirt',
+
+    slug: 'Polo-Tshirt',
+
+    description: 'cotton shirt one',
+
+    price: 300,
+
+    category: {
+
+      _id: '651d7a09beef0085f914cc77',
+
+      name: 'men-collection',
+
+      slug: 'men-collection',
+
+      __v: 0
+
+    },
+
+    quantity: 2,
+
+    __v: 0
+
+  },
+
+  {
+
+    _id: '651d7b7ebeef0085f914cc9a',
+
+    name: 'Np stylish Shirt',
+
+    slug: 'Np-stylish-Shirt',
+
+    description: 'summer Tshirt two',
+
+    price: 800,
+
+    category: {
+
+      _id: '651d7a09beef0085f914cc77',
+
+      name: 'men-collection',
+
+      slug: 'men-collection',
+
+      __v: 0
+
+    },
+
+    quantity: 1,
+
+    __v: 0
+
+  },
+
+  {
+
+    _id: '651d7cdbbeef0085f914ccad',
+
+    name: 'women dress',
+
+    slug: 'women-dress',
+
+    description: 'gorgeous women wear',
+
+    price: 200,
+
+    category: {
+
+      _id: '651d7a12beef0085f914cc7c',
+
+      name: 'women-collection',
+
+      slug: 'women-collection',
+
+      __v: 0
+
+    },
+
+    quantity: -6,
+
+    __v: 0
+
+  },
+
+  {
+
+    _id: '651d7d04beef0085f914ccb7',
+
+    name: 'winter jacket',
+
+    slug: 'winter-jacket',
+
+    description: 'women stylish jacket',
+
+    price: 400,
+
+    category: {
+
+      _id: '651d7a12beef0085f914cc7c',
+
+      name: 'women-collection',
+
+      slug: 'women-collection',
+
+      __v: 0
+
+    },
+
+    quantity: 4,
+
+    __v: 0
+
+  },]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
@@ -30,6 +148,7 @@ function Home() {
       console.log(error);
     }
   }
+
 
   const getAllProducts = async () => {
     try {
